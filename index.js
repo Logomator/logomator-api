@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var config = require('./config.json');
+var config = require('./config/config.json');
 var NOUN_PROJECT_API_KEY = config.NOUN_PROJECT_API_KEY;
 var NOUN_PROJECT_API_SECRET = config.NOUN_PROJECT_API_SECRET;
 var cors = require('cors');
@@ -9,6 +9,7 @@ var NounProject = require('the-noun-project'),
         key: NOUN_PROJECT_API_KEY,
         secret: NOUN_PROJECT_API_SECRET
     });
+var Logo = require('./src/logo/logo');
 
 app.use(cors());
 
@@ -26,6 +27,11 @@ app.get('/api/icons/:term', function (req, res) {
         return res.send({message: "API not available"});
 
     });
+});
+
+app.get('/logo', function(req, res) {
+   let logo = Logo.logo();
+    res.send(logo);
 });
 
 app.listen(8000,  function () {
