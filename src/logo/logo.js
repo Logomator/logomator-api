@@ -1,7 +1,9 @@
 "use strict";
 
-let SVG = require('svg.js');
-
+// returns a window with a document and an svg root node
+const window   = require('svgdom')
+const SVG      = require('svg.js')(window);
+const document = window.document;
 class Logo {
 
     get logo() {
@@ -9,9 +11,10 @@ class Logo {
     }
 
     generate() {
-        let draw = SVG('drawing').size(300, 300);
-        let rect = draw.rect(100, 100).attr({ fill: '#f06' });
-        return rect.svg('drawing');
+        const draw = SVG(document.documentElement);
+        draw.rect(100,100).fill('yellow').move(50,50);
+        let exportedSVG = draw.svg();
+        return exportedSVG;
     }
 }
 

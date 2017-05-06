@@ -30,8 +30,8 @@ app.get('/api/icons/:term', function (req, res) {
 });
 
 app.get('/logo', function(req, res) {
-   let logo = Logo.logo();
-    res.send(logo);
+   let logo = Logo.generate();
+    return res.send(logo);
 });
 
 app.listen(8000,  function () {
