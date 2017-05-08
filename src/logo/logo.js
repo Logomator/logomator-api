@@ -7,6 +7,7 @@ const document = window.document;
 // Logo configuration
 const LOGO_WIDTH = 300;
 const LOGO_HEIGHT = 230;
+const LOGO_BACKGROUND = './images/logo-background-shadow.png';
 
 class Logo {
     constructor(companyName, tagline, fontFamily, companyNameColor, taglineColor, recipe) {
@@ -22,10 +23,10 @@ class Logo {
     generate() {
         const draw = SVG(document.documentElement).size(300, 230);
         draw.rect(LOGO_WIDTH, LOGO_HEIGHT).fill('#fff');
-        draw.image('./images/logo-background-shadow.png', 300, 230);
+        draw.image(LOGO_BACKGROUND, 300, 230);
         draw.text(this.companyName).font({
             fill: this.companyNameColor,
-            family: 'Arial',
+            family: this.fontFamily,
             size: '30',
             anchor: this.recipe.companyNameAnchor,
             leading: this.recipe.companyNameLeading,

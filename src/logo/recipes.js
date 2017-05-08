@@ -1,9 +1,9 @@
 class Recipes {
-
     getRecipes() {
         return [
             // Recipe 1
             {
+                hasTagline: false,
                 companyNameAnchor: 'middle',
                 companyNameLeading: 4,
                 companyNameDy: '50%',
