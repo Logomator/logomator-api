@@ -9,9 +9,11 @@ var NounProject = require('the-noun-project'),
         key: NOUN_PROJECT_API_KEY,
         secret: NOUN_PROJECT_API_SECRET
     });
-var Logo = require('./src/logo/logo');
+let Logo = require('./src/logo/logo');
+let recipes = require('./src/logo/recipes');
 
 app.use(cors());
+app.use(express.static('public'));
 
 app.get('/api/icons/:term', function (req, res) {
 
@@ -30,8 +32,16 @@ app.get('/api/icons/:term', function (req, res) {
 });
 
 app.get('/logo', function(req, res) {
-   let logo = Logo.generate();
-    return res.send(logo);
+    let logos = [];
+
+    console.log(recipes.getRecipes());
+
+    recipes.getRecipes().forEach((recipe) => {
+        logos.push(
+            new Logo('Company Name', 'Tagline', 'Proxima Nova', '#000', 'red', recipe).generate()
+            );
+    });
+    return res.send(logos[0]);
 });
 
 app.listen(8000,  function () {

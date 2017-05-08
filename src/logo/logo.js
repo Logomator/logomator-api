@@ -1,21 +1,39 @@
 "use strict";
 
-// returns a window with a document and an svg root node
-const window   = require('svgdom')
-const SVG      = require('svg.js')(window);
+const window = require('svgdom');
+const SVG = require('svg.js')(window);
 const document = window.document;
-class Logo {
 
-    get logo() {
-        return this.generate();
+// Logo configuration
+const LOGO_WIDTH = 300;
+const LOGO_HEIGHT = 230;
+
+class Logo {
+    constructor(companyName, tagline, fontFamily, companyNameColor, taglineColor, recipe) {
+        this.companyName = companyName || 'Dopest';
+        this.tagline = tagline || null;
+        this.fontFamily = fontFamily || 'Proxima Nova';
+        this.companyNameColor = companyNameColor || '#FF6600';
+        this.taglineColor = taglineColor || '#FF6600';
+        this.recipe = recipe;
+
     }
 
     generate() {
-        const draw = SVG(document.documentElement);
-        draw.rect(100,100).fill('yellow').move(50,50);
-        let exportedSVG = draw.svg();
-        return exportedSVG;
+        const draw = SVG(document.documentElement).size(300, 230);
+        draw.rect(LOGO_WIDTH, LOGO_HEIGHT).fill('#fff');
+        draw.image('./images/logo-background-shadow.png', 300, 230);
+        draw.text(this.companyName).font({
+            fill: this.companyNameColor,
+            family: 'Arial',
+            size: '30',
+            anchor: this.recipe.companyNameAnchor,
+            leading: this.recipe.companyNameLeading,
+            dx: this.recipe.companyNameDx,
+            dy: this.recipe.companyNameDy
+        });
+        return draw.svg();
     }
 }
 
-module.exports = new Logo();
+module.exports = Logo;
