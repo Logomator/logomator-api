@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.3",
+    "express": "^4.15.2",
     "expressjs": "^1.0.1",
     "svg.js": "^2.6.1",
     "svgdom": "0.0.10",
