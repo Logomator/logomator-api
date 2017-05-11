@@ -63,6 +63,6 @@ app.get('/logo', (req, res) => {
   return res.send(logos[3]);
 });
 
-app.listen(process.env.port || 8000, () => {
+app.listen(process.env.PORT || 8000, () => {
   console.log('Logomator API listening on port 8000!');
 });
