@@ -60,7 +60,7 @@ app.get('/logo', (req, res) => {
     logos.push(
       new Logo('Dope Logos Now', 'Puppies Galore', 'Proxima Nova', '#FF6600', '#818691', recipe, icons).generate());
   });
-  return res.send(logos[2]);
+  return res.send(logos[3]);
 });
 
 app.listen(8000, () => {

@@ -15,8 +15,8 @@ class Recipes {
       },
       // Recipe 2
       {
-        // Company name
         hasTagline: true,
+        // Company name
         companyNameAnchor: 'middle',
         companyBaseline: 'middle',
         companyNameX: '50%',
@@ -39,6 +39,27 @@ class Recipes {
         companyNameFontSize: 30,
         iconX: '40%',
         iconY: '24%',
+      },
+
+      // Recipe 4
+      {
+        hasTagline: true,
+        hasIcon: true,
+        // Company name
+        companyNameAnchor: 'middle',
+        companyBaseline: 'middle',
+        companyNameX: '50%',
+        companyNameY: '42%',
+        companyNameFontSize: 30,
+        // icon
+        iconX: '40%',
+        iconY: '24%',
+        // Tagline
+        taglineAnchor: 'middle',
+        taglineBaseline: 'middle',
+        taglineX: '50%',
+        taglineY: '60%',
+        taglineFontSize: 16,
       },
     ];
   }
