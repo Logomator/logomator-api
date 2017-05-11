@@ -25,13 +25,10 @@ class Logo {
     draw.image(LOGO_BACKGROUND, 300, 230);
 
     if (this.recipe.hasIcon) {
-      console.log('hasIcon', (this.icons));
       const image = draw.image(this.icons[0], 60, 60);
-      image.attr('x', '50%');
-      image.attr('y', '50%');
+      image.attr('x', this.recipe.iconX);
+      image.attr('y', this.recipe.iconY);
     }
-
-
 
     const text = draw.text(this.companyName);
     text.font({

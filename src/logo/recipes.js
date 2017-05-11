@@ -35,10 +35,10 @@ class Recipes {
         companyNameAnchor: 'middle',
         companyBaseline: 'middle',
         companyNameX: '50%',
-        companyNameY: '33%',
+        companyNameY: '42%',
         companyNameFontSize: 30,
-        iconX: '50%',
-        iconY: '25%',
+        iconX: '40%',
+        iconY: '24%',
       },
     ];
   }
