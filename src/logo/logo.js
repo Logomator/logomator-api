@@ -25,7 +25,7 @@ class Logo {
     draw.image(LOGO_BACKGROUND, 300, 230);
 
     if (this.recipe.hasIcon) {
-      const image = draw.image(this.icons[0], 60, 60);
+      const image = draw.image(this.icons[0].preview_url_84, 60, 60);
       image.attr('x', this.recipe.iconX);
       image.attr('y', this.recipe.iconY);
     }

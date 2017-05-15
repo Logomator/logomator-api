@@ -18,11 +18,9 @@ app.use(express.static('public'));
 
 
 app.get('/api/icons/:term', (req, res) => {
-
   if (!req.params.term) {
     return res.send({ error: 'You need to specify a term' });
   }
-
   nounProject.getIconsByTerm(req.params.term, { limit: 9 }, (err, data) => {
     if (!err) {
       return res.send(data.icons);
@@ -31,19 +29,29 @@ app.get('/api/icons/:term', (req, res) => {
   });
 });
 
+const getIcons = () => {
+  return new Promise((fulfill, reject) => {
+    nounProject.getIconsByTerm('dog', { limit: 9 }, (err, data) => {
+      if (!err) {
+        fulfill(data.icons);
+      }
+      reject({ message: 'API not available' });
+    });
+  });
+};
+
 app.get('/logo', (req, res) => {
   const logos = [];
-  const icons = [
-    'https://d30y9cdsu7xlg0.cloudfront.net/png/206102-84.png',
-    'https://d30y9cdsu7xlg0.cloudfront.net/png/318161-84.png',
-    'https://d30y9cdsu7xlg0.cloudfront.net/png/673953-84.png',
-    'https://d30y9cdsu7xlg0.cloudfront.net/png/991075-84.png',
-  ];
-  recipes.getRecipes().forEach((recipe) => {
-    logos.push(
-      new Logo('Dope Logos Now', 'Puppies Galore', 'Proxima Nova', '#FF6600', '#818691', recipe, icons).generate());
+  getIcons().then((icons) => {
+    recipes.getRecipes().forEach((recipe) => {
+      logos.push(
+        new Logo('Dope Logos Now', 'Puppies Galore', 'Proxima Nova', '#FF6600', '#818691', recipe, icons).generate());
+    });
+    return res.send(logos[3]);
+  }).catch((error) => {
+    console.log(error);
+    res.send(error.toString());
   });
-  return res.send(logos);
 });
 
 app.listen(process.env.PORT || 8000, () => {
