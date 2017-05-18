@@ -53,7 +53,7 @@ class Recipes {
         companyNameFontSize: 30,
         // icon
         iconX: '40%',
-        iconY: '24%',
+        iconY: '22%',
         // Tagline
         taglineAnchor: 'middle',
         taglineBaseline: 'middle',

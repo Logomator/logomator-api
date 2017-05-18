@@ -22,7 +22,7 @@ class Logo {
   generate() {
     const draw = SVG(document.documentElement).size(300, 230);
     draw.rect(LOGO_WIDTH, LOGO_HEIGHT).fill('#fff');
-    draw.image(LOGO_BACKGROUND, 300, 230);
+    draw.image(LOGO_BACKGROUND);
 
     if (this.recipe.hasIcon) {
       const image = draw.image(this.icons[0].preview_url_84, 60, 60);

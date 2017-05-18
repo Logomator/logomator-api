@@ -21,7 +21,7 @@ app.get('/api/icons/:term', (req, res) => {
   if (!req.params.term) {
     return res.send({ error: 'You need to specify a term' });
   }
-  nounProject.getIconsByTerm(req.params.term, { limit: 9 }, (err, data) => {
+  nounProject.getIconsByTerm(req.params.term, { limit: 9}, (err, data) => {
     if (!err) {
       return res.send(data.icons);
     }
@@ -35,7 +35,7 @@ const getIcons = () => {
       if (!err) {
         fulfill(data.icons);
       }
-      reject({ message: 'API not available' });
+      reject('API not available');
     });
   });
 };
@@ -45,9 +45,9 @@ app.get('/logo', (req, res) => {
   getIcons().then((icons) => {
     recipes.getRecipes().forEach((recipe) => {
       logos.push(
-        new Logo('Dope Logos Now', 'Puppies Galore', 'Proxima Nova', '#FF6600', '#818691', recipe, icons).generate());
+        new Logo('Dope Logos Now Ridcoulously long name hahahaha', 'Puppies Galore', 'Proxima Nova', '#FF6600', '#818691', recipe, icons).generate());
     });
-    return res.send(logos[3]);
+    return res.send(logos[2]);
   }).catch((error) => {
     console.log(error);
     res.send(error.toString());
