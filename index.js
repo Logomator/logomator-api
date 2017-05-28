@@ -1,6 +1,7 @@
 const express = require('express');
 const config = require('./config/config.json');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const NounProject = require('the-noun-project');
 
 const app = express();
@@ -14,6 +15,7 @@ const Logo = require('./src/logo/logo');
 const recipes = require('./src/logo/recipes');
 
 app.use(cors());
+app.use(bodyParser.json());
 app.use(express.static('public'));
 
 
@@ -27,6 +29,11 @@ app.get('/api/icons/:term', (req, res) => {
     }
     return res.send({ message: 'API not available' });
   });
+});
+
+app.post('/api/logos/chars', (req, res) => {
+  console.log(req.body);
+  return res.send({message: 'Received successfully', statusCode: 200});
 });
 
 const getIcons = () => {
