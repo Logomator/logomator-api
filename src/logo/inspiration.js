@@ -1,4 +1,4 @@
-const inspirations = require('../common/inspirations.json');
+const inspirations = require('../common/config/inspirations.json');
 
 class Inspiration {
   constructor(selections) {

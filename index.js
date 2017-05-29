@@ -58,7 +58,7 @@ app.get('/logo', (req, res) => {
       logos.push(
         new Logo('Dope Logos Now Ridcoulously long name hahahaha', 'Puppies Galore', 'Proxima Nova', '#FF6600', '#818691', recipe, icons).generate());
     });
-    return res.send(logos[2]);
+    return res.send(logos[1]);
   }).catch((error) => {
     console.log(error);
     res.send(error.toString());
