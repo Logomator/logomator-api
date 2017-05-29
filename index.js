@@ -1,46 +1,45 @@
-let express = require('express');
-let app = express();
-let config = require('./config/config.json');
-let NOUN_PROJECT_API_KEY = config.NOUN_PROJECT_API_KEY;
-let NOUN_PROJECT_API_SECRET = config.NOUN_PROJECT_API_SECRET;
-let cors = require('cors');
-let NounProject = require('the-noun-project'),
-    nounProject = new NounProject({
-        key: NOUN_PROJECT_API_KEY,
-        secret: NOUN_PROJECT_API_SECRET
-    });
-let Logo = require('./src/logo/logo');
-let recipes = require('./src/logo/recipes');
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const Logo = require('./src/logo/logo');
+const Inspirations = require('./src/logo/inspiration');
+const Information = require('./src/logo/information');
+const recipes = require('./src/logo/recipes');
 
+const app = express();
 app.use(cors());
+app.use(bodyParser.json());
 app.use(express.static('public'));
 
-app.get('/api/icons/:term', (req, res) => {
+app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something more semantic
+  const inspirations = new Inspirations(req.body.inspirations);
+  const rules = inspirations.getInspirations();
+  const information = new Information(req.body.companyName, req.body.tagline).getInformation();
+  const logos = [];
 
-    if (!req.params.term) {
-        return res.send({error: "You need to specify a term"});
-    }
+  recipes.getRecipes().forEach((recipe) => {
+    logos.push(
+      new Logo(information.name, information.tagline,
+        rules[0][0], '#FF6600', '#818691', recipe, []).generate());
+  });
 
-    nounProject.getIconsByTerm(req.params.term, {limit: 9}, function (err, data) {
-
-        if (!err) {
-            return res.send(data.icons);
-        }
-        return res.send({message: "API not available"});
-
-    });
+  return res.send({
+    statusCode: 200,
+    concepts: logos,
+  });
 });
+
 
 app.get('/logo', (req, res) => {
-    let logos = [];
-    recipes.getRecipes().forEach((recipe) => {
-        logos.push(
-            new Logo('Company Name', 'Tagline', 'Proxima Nova', '#FF6600', 'red', recipe).generate()
-            );
-    });
-    return res.send(logos[0]);
+  const logos = [];
+  recipes.getRecipes().forEach((recipe) => {
+    logos.push(
+      new Logo('Foo', 'Bar',
+        'Proxima Nova', '#FF6600', '#818691', recipe, []).generate());
+  });
+  return res.send(logos[0]);
 });
 
-app.listen(8000, () => {
-    console.log('Logomator API listening on port 8000!')
+app.listen(process.env.PORT || 8000, () => {
+  console.log('Logomator API listening on port 8000!');
 });
