@@ -31,7 +31,7 @@ class Recipes {
       },
       // Recipe 3
       {
-        hasIcon: true,
+        hasIcon: false,
         companyNameAnchor: 'middle',
         companyBaseline: 'middle',
         companyNameX: '50%',
@@ -44,7 +44,7 @@ class Recipes {
       // Recipe 4
       {
         hasTagline: true,
-        hasIcon: true,
+        hasIcon: false,
         // Company name
         companyNameAnchor: 'middle',
         companyBaseline: 'middle',

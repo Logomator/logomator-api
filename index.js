@@ -13,10 +13,20 @@ app.use(express.static('public'));
 
 app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something more semantic
   const inspirations = new Inspirations(req.body.inspirations);
-  const selected = inspirations.getInspirations();
-  const information = new Information(req.body.companyName, req.body.tagline);
-  console.log(information.getInformation());
-  return res.send({ message: 'Received successfully', statusCode: 200 });
+  const rules = inspirations.getInspirations();
+  const information = new Information(req.body.companyName, req.body.tagline).getInformation();
+  const logos = [];
+
+  recipes.getRecipes().forEach((recipe) => {
+    logos.push(
+      new Logo(information.name, information.tagline,
+        rules[0][0], '#FF6600', '#818691', recipe, []).generate());
+  });
+
+  return res.send({
+    statusCode: 200,
+    concepts: logos,
+  });
 });
 
 
@@ -24,7 +34,7 @@ app.get('/logo', (req, res) => {
   const logos = [];
   recipes.getRecipes().forEach((recipe) => {
     logos.push(
-      new Logo('Dope Logos Now Ridcoulously long name hahahaha', 'Puppies Galore',
+      new Logo('Foo', 'Bar',
         'Proxima Nova', '#FF6600', '#818691', recipe, []).generate());
   });
   return res.send(logos[0]);
