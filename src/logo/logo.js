@@ -9,14 +9,15 @@ const LOGO_HEIGHT = 230;
 const LOGO_BACKGROUND = './images/logo-background-shadow.png';
 
 class Logo {
-  constructor(companyName, tagline, fontFamily, companyNameColor, taglineColor, recipe, icons) {
+  constructor(companyName, tagline, rules, companyNameColor, taglineColor, recipe, icons) {
     this.companyName = companyName || 'Dopest';
-    this.tagline = tagline || null;
-    this.fontFamily = fontFamily || 'Proxima Nova';
+    this.tagline = tagline || '';
+    this.fontFamily = 'Proxima Nova';
     this.companyNameColor = companyNameColor || '#FF6600';
     this.taglineColor = taglineColor || '#FF6600';
     this.recipe = recipe;
     this.icons = icons;
+    this.rules = rules;
   }
 
   generate() {
@@ -30,29 +31,32 @@ class Logo {
       image.attr('y', this.recipe.iconY);
     }
 
-    const text = draw.text(this.companyName);
-    text.font({
+    const name = draw.text(this.companyName);
+    name.font({
       fill: this.companyNameColor,
-      family: this.fontFamily,
+      family: this.rules.name.fontFamily,
+      weight: this.rules.name.fontWeight,
       size: '30',
     });
 
-    text.attr('x', this.recipe.companyNameX);
-    text.attr('y', this.recipe.companyNameY);
-    text.attr('alignment-baseline', this.recipe.companyBaseline);
-    text.attr('text-anchor', this.recipe.companyNameAnchor);
+    name.attr('x', this.recipe);
+    name.attr('y', this.recipe.companyNameY);
+    name.attr('alignment-baseline', this.recipe.companyBaseline);
+    name.attr('text-anchor', this.recipe.companyNameAnchor);
 
     if (this.recipe.hasTagline) {
-      const text2 = draw.text(this.tagline);
-      text2.font({
+      const tagline = draw.text(this.tagline);
+      tagline.font({
         fill: this.taglineColor,
-        family: this.fontFamily,
+        family: this.rules.tagline.fontFamily,
+        weight: this.rules.tagline.fontWeight,
         size: this.recipe.taglineFontSize,
       });
-      text2.attr('x', this.recipe.taglineX);
-      text2.attr('y', this.recipe.taglineY);
-      text2.attr('alignment-baseline', this.recipe.taglineBaseline);
-      text2.attr('text-anchor', 'middle');
+
+      tagline.attr('x', this.recipe.taglineX);
+      tagline.attr('y', this.recipe.taglineY);
+      tagline.attr('alignment-baseline', this.recipe.taglineBaseline);
+      tagline.attr('text-anchor', 'middle');
     }
     return draw.svg();
   }
