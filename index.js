@@ -9,9 +9,10 @@ const NOUN_PROJECT_API_KEY = config.NOUN_PROJECT_API_KEY;
 const NOUN_PROJECT_API_SECRET = config.NOUN_PROJECT_API_SECRET;
 const nounProject = new NounProject({
   key: NOUN_PROJECT_API_KEY,
-  secret: NOUN_PROJECT_API_SECRET,
+  secret: NOUN_PROJECT_API_SECRET
 });
 const Logo = require('./src/logo/logo');
+const Inspirations = require('./src/logo/inspiration');
 const recipes = require('./src/logo/recipes');
 
 app.use(cors());
@@ -31,8 +32,11 @@ app.get('/api/icons/:term', (req, res) => {
   });
 });
 
-app.post('/api/logos/chars', (req, res) => {
-  console.log(req.body);
+app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something more semantic
+  const inspirations = new Inspirations(req.body.inspirations);
+  const selected = inspirations.getInspirations();
+
+  console.log("SELECTED", selected);
   return res.send({message: 'Received successfully', statusCode: 200});
 });
 

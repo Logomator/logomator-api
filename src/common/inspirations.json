@@ -1,0 +1,19 @@
+[
+  {
+    "0": {
+      "companyName": {
+        "fontFamily": "Proxima Nova",
+        "fontWeight": "500",
+        "fontType": "serif",
+        "casing": "uppercase"
+      },
+
+      "tagline": {
+        "fontFamily": "Proxima Nova",
+        "fontWeight": "300",
+        "fontType": "serif",
+        "casing": "uppercase"
+      }
+    }
+  }
+]
