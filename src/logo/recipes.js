@@ -1,17 +1,13 @@
 class Recipes {
-  constructor(name, tagline) {
-    this.companyName = name;
-    this.tagline = tagline;
-  }
-  getRecipes() {
+  static getRecipes() {
     return [
       // Recipe 1
       {
+        hasTagline: false,
         companyNameAnchor: 'middle',
         companyBaseline: 'middle',
         companyNameX: '50%',
-        companyNameY: '33%',
-        companyNameFontSize: 30,
+        companyNameY: '50%',
       },
       // Recipe 2
       {
@@ -20,49 +16,30 @@ class Recipes {
         companyNameAnchor: 'middle',
         companyBaseline: 'middle',
         companyNameX: '50%',
-        companyNameY: '25%',
-        companyNameFontSize: 30,
+        companyNameY: '44%',
         // Tagline
         taglineAnchor: 'middle',
         taglineBaseline: 'middle',
         taglineX: '50%',
-        taglineY: '45%',
-        taglineFontSize: 16,
+        taglineY: '56%',
       },
       // Recipe 3
       {
-        hasIcon: false,
-        companyNameAnchor: 'middle',
-        companyBaseline: 'middle',
-        companyNameX: '50%',
-        companyNameY: '42%',
-        companyNameFontSize: 30,
-        iconX: '40%',
-        iconY: '24%',
-      },
-
-      // Recipe 4
-      {
         hasTagline: true,
-        hasIcon: false,
+        hasAccent: true,
         // Company name
         companyNameAnchor: 'middle',
         companyBaseline: 'middle',
         companyNameX: '50%',
-        companyNameY: '42%',
-        companyNameFontSize: 30,
-        // icon
-        iconX: '40%',
-        iconY: '22%',
+        companyNameY: '40%',
         // Tagline
         taglineAnchor: 'middle',
         taglineBaseline: 'middle',
         taglineX: '50%',
         taglineY: '60%',
-        taglineFontSize: 16,
       },
     ];
   }
 }
 
-module.exports = new Recipes();
+module.exports = Recipes;

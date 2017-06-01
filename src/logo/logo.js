@@ -25,32 +25,29 @@ class Logo {
     draw.rect(LOGO_WIDTH, LOGO_HEIGHT).fill('#fff');
     draw.image(LOGO_BACKGROUND);
 
-    if (this.recipe.hasIcon) {
-      const image = draw.image(this.icons[0].preview_url_84, 60, 60);
-      image.attr('x', this.recipe.iconX);
-      image.attr('y', this.recipe.iconY);
-    }
-
-    const name = draw.text(this.companyName);
+    const name = draw.text('.').tspan(this.companyName);
     name.font({
       fill: this.companyNameColor,
       family: this.rules.name.fontFamily,
       weight: this.rules.name.fontWeight,
-      size: '30',
+      size: this.rules.name.fontSize,
     });
 
-    name.attr('x', this.recipe);
+    name.attr('x', this.recipe.companyNameX);
     name.attr('y', this.recipe.companyNameY);
     name.attr('alignment-baseline', this.recipe.companyBaseline);
     name.attr('text-anchor', this.recipe.companyNameAnchor);
 
+    /**
+     * Check if recipe has tagline.
+     */
     if (this.recipe.hasTagline) {
-      const tagline = draw.text(this.tagline);
+      const tagline = draw.text('.').tspan(this.tagline);
       tagline.font({
         fill: this.taglineColor,
         family: this.rules.tagline.fontFamily,
         weight: this.rules.tagline.fontWeight,
-        size: this.recipe.taglineFontSize,
+        size: this.rules.tagline.fontSize,
       });
 
       tagline.attr('x', this.recipe.taglineX);
@@ -58,6 +55,17 @@ class Logo {
       tagline.attr('alignment-baseline', this.recipe.taglineBaseline);
       tagline.attr('text-anchor', 'middle');
     }
+
+    /**
+     * Check if recipe has accent
+     */
+    if (this.recipe.hasAccent) {
+      const line = draw.line(250, 100, 100, 100);
+      line.x('50%');
+      line.y('50%');
+      line.stroke({color: '#818691', width: 1, linecap: 'round'});
+    }
+
     return draw.svg();
   }
 }

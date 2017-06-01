@@ -2,17 +2,19 @@
   {
     "0": {
       "name": {
-        "fontFamily": "Proxima Nova",
-        "fontWeight": "500",
+        "fontFamily": "Montserrat",
         "fontType": "serif",
-        "casing": "uppercase"
+        "casing": "lowercase",
+        "fontSize": 28,
+        "letterSpacing": 1.6
       },
 
       "tagline": {
-        "fontFamily": "Proxima Nova",
-        "fontWeight": "300",
+        "fontFamily": "Montserrat",
         "fontType": "serif",
-        "casing": "uppercase"
+        "casing": "uppercase",
+        "fontSize": 18,
+        "letterSpacing": 5.3
       }
     }
   }
