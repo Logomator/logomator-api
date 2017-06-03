@@ -24,20 +24,20 @@ class Recipes {
         taglineY: '56%',
       },
       // Recipe 3
-      {
-        hasTagline: true,
-        hasAccent: true,
-        // Company name
-        companyNameAnchor: 'middle',
-        companyBaseline: 'middle',
-        companyNameX: '50%',
-        companyNameY: '40%',
-        // Tagline
-        taglineAnchor: 'middle',
-        taglineBaseline: 'middle',
-        taglineX: '50%',
-        taglineY: '60%',
-      },
+      // {
+      //   hasTagline: true,
+      //   hasAccent: true,
+      //   // Company name
+      //   companyNameAnchor: 'middle',
+      //   companyBaseline: 'middle',
+      //   companyNameX: '50%',
+      //   companyNameY: '40%',
+      //   // Tagline
+      //   taglineAnchor: 'middle',
+      //   taglineBaseline: 'middle',
+      //   taglineX: '50%',
+      //   taglineY: '60%',
+      // },
     ];
   }
 }

@@ -25,14 +25,39 @@ class Logo {
     draw.rect(LOGO_WIDTH, LOGO_HEIGHT).fill('#fff');
     draw.image(LOGO_BACKGROUND);
 
+    /**
+     * Check company name casing
+     */
+    switch (this.rules.name.casing) {
+      case 'lowercase':
+        this.companyName = this.companyName.toLowerCase();
+        break;
+      case 'uppercase':
+        this.companyName = this.companyName.toUpperCase();
+        break;
+      case 'pascalCase':
+        this.companyName = this.companyName.replace(/\w+/g, w => w[0].toUpperCase() +
+        w.slice(1).toLowerCase());
+        break;
+      default:
+        break;
+    }
+
     const name = draw.text('.').tspan(this.companyName);
+
+    /**
+     * Company name font rules.
+     */
     name.font({
       fill: this.companyNameColor,
       family: this.rules.name.fontFamily,
-      weight: this.rules.name.fontWeight,
+      'letter-spacing': this.rules.name.letterSpacing,
       size: this.rules.name.fontSize,
     });
 
+    /**
+     * Company name positioning rules.
+     */
     name.attr('x', this.recipe.companyNameX);
     name.attr('y', this.recipe.companyNameY);
     name.attr('alignment-baseline', this.recipe.companyBaseline);
@@ -43,13 +68,36 @@ class Logo {
      */
     if (this.recipe.hasTagline) {
       const tagline = draw.text('.').tspan(this.tagline);
+
+      switch (this.rules.tagline.casing) {
+        case 'lowercase':
+          this.tagline = this.tagline.toLowerCase();
+          break;
+        case 'uppercase':
+          this.tagline = this.tagline.toUpperCase();
+          break;
+        case 'pascalCase':
+          this.tagline = this.tagline.replace(/\w+/g, w => w[0].toUpperCase() +
+          w.slice(1).toLowerCase());
+          break;
+        default:
+          break;
+      }
+
+      /**
+       * Tagline font rules.
+       */
       tagline.font({
         fill: this.taglineColor,
         family: this.rules.tagline.fontFamily,
         weight: this.rules.tagline.fontWeight,
+        'letter-spacing': this.rules.tagline.letterSpacing,
         size: this.rules.tagline.fontSize,
       });
 
+      /**
+       * Tagline positioning rules.
+       */
       tagline.attr('x', this.recipe.taglineX);
       tagline.attr('y', this.recipe.taglineY);
       tagline.attr('alignment-baseline', this.recipe.taglineBaseline);
@@ -60,10 +108,14 @@ class Logo {
      * Check if recipe has accent
      */
     if (this.recipe.hasAccent) {
-      const line = draw.line(250, 100, 100, 100);
-      line.x('50%');
+      const lineWidth = ((21 * this.companyName.length) / 1.8) + 100;
+      const line = draw.line(lineWidth, 100, 100, 100);
+
+      const lineX = lineWidth - 102;
+
+      line.x(lineX);
       line.y('50%');
-      line.stroke({color: '#818691', width: 1, linecap: 'round'});
+      line.stroke({ color: '#818691', width: 1, linecap: 'round' });
     }
 
     return draw.svg();

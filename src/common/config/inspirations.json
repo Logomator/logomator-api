@@ -2,17 +2,17 @@
   {
     "0": {
       "name": {
-        "fontFamily": "Montserrat",
+        "fontFamily": "Oswald",
         "fontType": "serif",
-        "casing": "lowercase",
+        "casing": "uppercase",
         "fontSize": 28,
-        "letterSpacing": 1.6
+        "letterSpacing": 30.6
       },
 
       "tagline": {
-        "fontFamily": "Montserrat",
+        "fontFamily": "Lato",
         "fontType": "serif",
-        "casing": "uppercase",
+        "casing": "lowercase",
         "fontSize": 18,
         "letterSpacing": 5.3
       }
