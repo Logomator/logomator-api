@@ -6,7 +6,7 @@
         "fontType": "serif",
         "casing": "uppercase",
         "fontSize": 28,
-        "letterSpacing": 30.6
+        "letterSpacing": 0
       },
 
       "tagline": {
@@ -14,7 +14,7 @@
         "fontType": "serif",
         "casing": "lowercase",
         "fontSize": 18,
-        "letterSpacing": 5.3
+        "letterSpacing": 0
       }
     }
   }

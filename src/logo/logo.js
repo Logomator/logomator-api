@@ -9,13 +9,13 @@ const LOGO_HEIGHT = 230;
 const LOGO_BACKGROUND = './images/logo-background-shadow.png';
 
 class Logo {
-  constructor(companyName, tagline, rules, companyNameColor, taglineColor, recipe, icons) {
+  constructor(companyName, tagline, rules, companyNameColor, taglineColor, recipe, fontFamily, icons) {
     this.companyName = companyName || 'Dopest';
     this.tagline = tagline || '';
-    this.fontFamily = 'Proxima Nova';
-    this.companyNameColor = companyNameColor || '#FF6600';
-    this.taglineColor = taglineColor || '#FF6600';
+    this.companyNameColor = companyNameColor;
+    this.taglineColor = taglineColor;
     this.recipe = recipe;
+    this.fontFamily = fontFamily;
     this.icons = icons;
     this.rules = rules;
   }
@@ -50,7 +50,7 @@ class Logo {
      */
     name.font({
       fill: this.companyNameColor,
-      family: this.rules.name.fontFamily,
+      family: this.fontFamily,
       'letter-spacing': this.rules.name.letterSpacing,
       size: this.rules.name.fontSize,
     });
@@ -67,8 +67,9 @@ class Logo {
      * Check if recipe has tagline.
      */
     if (this.recipe.hasTagline) {
-      const tagline = draw.text('.').tspan(this.tagline);
-
+      /**
+       * Tagline casing rules.
+       */
       switch (this.rules.tagline.casing) {
         case 'lowercase':
           this.tagline = this.tagline.toLowerCase();
@@ -83,6 +84,7 @@ class Logo {
         default:
           break;
       }
+      const tagline = draw.text('.').tspan(this.tagline);
 
       /**
        * Tagline font rules.
