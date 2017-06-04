@@ -9,8 +9,12 @@ const fonts = require('./src/logo/fonts');
 
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser({ limit: '150mb' }));
+app.use(bodyParser.json({ limit: '100mb' }));
+app.use(bodyParser.urlencoded({
+  limit: '100mb',
+  extended: true,
+  parameterLimit: 50000,
+}));
 app.use(express.static('public'));
 
 app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something more semantic
@@ -18,7 +22,7 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
   const rules = inspirations.getInspirations();
   const information = new Information(req.body.companyName, req.body.tagline).getInformation();
   const colors = req.body.palettes.filter(p => p.isSelected);
-
+  
   const logos = [];
 
   fonts.getFonts().forEach((font) => {
@@ -46,12 +50,17 @@ app.post('/api/logos/concepts', (req, res) => {
   const rules = inspirations.generateMoreConcepts();
   const information = new Information(req.body.companyName, req.body.tagline).getInformation();
   const colors = req.body.palettes.filter(p => p.isSelected);
+  console.log('COLORS', colors);
+
   const logos = [];
 
-  recipes.getRecipes().forEach((recipe) => {
-    logos.push(
-      new Logo(information.name, information.tagline,
-        rules[0][0], colors[0].hexcodes[1], colors[1].hexcodes[1], recipe, []).generate());
+  fonts.getFonts().forEach((font) => {
+    recipes.getRecipes().forEach((recipe) => {
+      logos.push(
+        new Logo(information.name, information.tagline,
+          rules[0][0], colors[0].hexcodes[1], colors[1].hexcodes[1], recipe,
+          font, []).generate());
+    });
   });
 
   res.set({

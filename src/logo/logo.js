@@ -10,11 +10,11 @@ const LOGO_BACKGROUND = './images/logo-background-shadow.png';
 
 class Logo {
   constructor(companyName, tagline, rules, companyNameColor, taglineColor, recipe, fontFamily, icons) {
-    
+
     this.companyName = companyName || 'Dopest';
     this.tagline = tagline || '';
-    this.companyNameColor = companyNameColor || '#FF6600';
-    this.taglineColor = taglineColor || '#FF6600';
+    this.companyNameColor = companyNameColor;
+    this.taglineColor = taglineColor;
     this.recipe = recipe;
     this.fontFamily = fontFamily;
     this.icons = icons;
