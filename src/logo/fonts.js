@@ -1,23 +1,23 @@
 const FONT_LIST = [
   'Montserrat',
-  // 'Montserrat Semibold',
-  // 'Montserrat Bold',
+  'Montserrat Semibold',
+  'Montserrat Bold',
   'Abril Fat Face',
   'Alex Brush',
   'Bebas Neue',
   'Boogaloo',
   'Caviar Dreams',
-  //'Caviar Dreams Bold',
+  'Caviar Dreams Bold',
   'Chunk Five',
   'Cinzel',
-  //'Cinzel Bold',
+  'Cinzel Bold',
   'Dancing Script',
   'Great Vibes',
   'Happy Monkey',
   'Lato',
-  //'Lato Semi Bold',
-  //'Lato Bold',
-  //'Lato Medium',
+  'Lato Semi Bold',
+  'Lato Bold',
+  'Lato Medium',
   'Oswald',
   'Pacifico',
 ];
@@ -30,7 +30,7 @@ const TAGLINE_FONT_LIST = [
 const FONT_CASING = [
   'lowercase',
   'uppercase',
-  'pascalCase'
+  'pascalCase',
 ];
 
 

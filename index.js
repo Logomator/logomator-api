@@ -18,14 +18,16 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
   const rules = inspirations.getInspirations();
   const information = new Information(req.body.companyName, req.body.tagline).getInformation();
   const colors = req.body.palettes.filter(p => p.isSelected);
-  console.log("COLORS", colors);
 
   const logos = [];
 
-  recipes.getRecipes().forEach((recipe) => {
-    logos.push(
-      new Logo(information.name, information.tagline,
-        rules[0][0], colors[0].hexcodes[1], colors[1].hexcodes[1], recipe, []).generate());
+  fonts.getFonts().forEach((font) => {
+    recipes.getRecipes().forEach((recipe) => {
+      logos.push(
+        new Logo(information.name, information.tagline,
+          rules[0][0], colors[0].hexcodes[1], colors[1].hexcodes[1], recipe,
+          font, []).generate());
+    });
   });
 
   res.set({
