@@ -22,7 +22,6 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
   const rules = inspirations.getInspirations();
   const information = new Information(req.body.companyName, req.body.tagline).getInformation();
   const colors = req.body.palettes.filter(p => p.isSelected);
-  
   const logos = [];
 
   fonts.getFonts().forEach((font) => {
