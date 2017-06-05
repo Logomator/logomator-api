@@ -5,22 +5,61 @@ const Logo = require('./src/logo/logo');
 const Inspirations = require('./src/logo/inspiration');
 const Information = require('./src/logo/information');
 const recipes = require('./src/logo/recipes');
+const fonts = require('./src/logo/fonts');
 
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '100mb' }));
+app.use(bodyParser.urlencoded({
+  limit: '100mb',
+  extended: true,
+  parameterLimit: 50000,
+}));
 app.use(express.static('public'));
 
 app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something more semantic
   const inspirations = new Inspirations(req.body.inspirations);
   const rules = inspirations.getInspirations();
   const information = new Information(req.body.companyName, req.body.tagline).getInformation();
+  const colors = req.body.palettes.filter(p => p.isSelected);
   const logos = [];
 
-  recipes.getRecipes().forEach((recipe) => {
-    logos.push(
-      new Logo(information.name, information.tagline,
-        rules[0][0], '#FF6600', '#818691', recipe, []).generate());
+  fonts.getFonts().forEach((font) => {
+    recipes.getRecipes().forEach((recipe) => {
+      logos.push(
+        new Logo(information.name, information.tagline,
+          rules[0][0], colors[0].hexcodes[1], colors[1].hexcodes[1], recipe,
+          font, []).generate());
+    });
+  });
+
+  res.set({
+    'Content-Type': 'image/svg+xml',
+    Vary: 'Accept-Encoding',
+  });
+
+  return res.send({
+    statusCode: 200,
+    concepts: logos,
+  });
+});
+
+app.post('/api/logos/concepts', (req, res) => {
+  const inspirations = new Inspirations(req.body.inspirations);
+  const rules = inspirations.generateMoreConcepts();
+  const information = new Information(req.body.companyName, req.body.tagline).getInformation();
+  const colors = req.body.palettes.filter(p => p.isSelected);
+  console.log('COLORS', colors);
+
+  const logos = [];
+
+  fonts.getFonts().forEach((font) => {
+    recipes.getRecipes().forEach((recipe) => {
+      logos.push(
+        new Logo(information.name, information.tagline,
+          rules[0][0], colors[0].hexcodes[1], colors[1].hexcodes[1], recipe,
+          font, []).generate());
+    });
   });
 
   res.set({
