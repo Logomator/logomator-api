@@ -53,9 +53,11 @@ class Inspiration {
         Math.floor(Math.random() * (fonts.getFontCasing().length))
         ];
 
-      i.tagline.casing = fonts.getFontCasing()[
-        Math.floor(Math.random() * (fonts.getFontCasing().length))
-        ];
+      if (i.tagline) {
+        i.tagline.casing = fonts.getFontCasing()[
+          Math.floor(Math.random() * (fonts.getFontCasing().length))
+          ];
+      }
     });
     return returnInspirations;
   }
