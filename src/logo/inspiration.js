@@ -16,34 +16,32 @@ class Inspiration {
     const returnInspirations = [];
 
     selected.forEach((i) => {
-      if (inspirations[i.id]) {
-        returnInspirations.push(inspirations[i.id]);
-      }
+      inspirations.forEach((inspiration) => {
+        if (inspiration.id === i.id) {
+          returnInspirations.push(inspiration);
+        }
+      });
     });
     return returnInspirations;
   }
 
   generateInspirationsWithFontFamily() {
-    const selected = this.getSelected();
-    const returnInspirations = [];
-
-    selected.forEach((i) => {
-      if (inspirations[i.id]) {
-        returnInspirations.push(inspirations[i.id]);
-      }
-    });
+    const returnInspirations = this.getInspirations();
 
     returnInspirations.forEach((i) => {
-      i[0].name.fontFamily = fonts.getFonts()[
+      i.name.fontFamily = fonts.getFonts()[
         Math.floor(Math.random() * (fonts.getFonts().length))
         ];
-      
-      if (i[0].name.fontFamily === 'Boogalo') {
-        i[0].tagline.fontFamily = 'Boogalo';
-      } else {
-        i[0].tagline.fontFamily = fonts.getTaglineFonts()[
-          Math.floor(Math.random() * (fonts.getTaglineFonts().length))
-          ]
+
+      // Check if tagline exists TODO refactor this.
+      if (i.tagline) {
+        if (i.name.fontFamily === 'Boogalo') {
+          i.tagline.fontFamily = 'Boogalo';
+        } else {
+          i.tagline.fontFamily = fonts.getTaglineFonts()[
+            Math.floor(Math.random() * (fonts.getTaglineFonts().length))
+            ];
+        }
       }
     });
     return returnInspirations;
@@ -51,11 +49,11 @@ class Inspiration {
 
   generateInspirationsWithCasing(returnInspirations) {
     returnInspirations.forEach((i) => {
-      i[0].name.casing = fonts.getFontCasing()[
+      i.name.casing = fonts.getFontCasing()[
         Math.floor(Math.random() * (fonts.getFontCasing().length))
         ];
 
-      i[0].tagline.casing = fonts.getFontCasing()[
+      i.tagline.casing = fonts.getFontCasing()[
         Math.floor(Math.random() * (fonts.getFontCasing().length))
         ];
     });
