@@ -1,21 +1,339 @@
 [
   {
-    "0": {
-      "name": {
-        "fontFamily": "Oswald",
-        "fontType": "serif",
-        "casing": "uppercase",
-        "fontSize": 28,
-        "letterSpacing": 0
-      },
-
-      "tagline": {
-        "fontFamily": "Lato",
-        "fontType": "serif",
-        "casing": "lowercase",
-        "fontSize": 18,
-        "letterSpacing": 0
-      }
+    "id": 1,
+    "inspirationName": "claireBiddens",
+    "name": {
+      "fontFamily": "Pacifico",
+      "fontType": "script",
+      "casing": "pascalcase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 22,
+    "inspirationName": "claireBiddensEvents",
+    "name": {
+      "fontFamily": "Pacifico",
+      "fontType": "script",
+      "casing": "pascalcase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    },
+    "tagline": {
+      "fontFamily": "Lato",
+      "fontType": "sansSerif",
+      "casing": "pascalcase",
+      "fontSize": 18,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 2,
+    "inspirationName": "happyFaces",
+    "name": {
+      "fontFamily": "Happy Monkey",
+      "fontType": "display",
+      "casing": "pascalcase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 23,
+    "inspirationName": "happyFacesChild",
+    "name": {
+      "fontFamily": "Happy Monkey",
+      "fontType": "display",
+      "casing": "pascalcase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    },
+    "tagline": {
+      "fontFamily": "Lato",
+      "fontType": "sansSerif",
+      "casing": "pascalcase",
+      "fontSize": 18,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 3,
+    "inspirationName": "aerial",
+    "name": {
+      "fontFamily": "Montserrat",
+      "fontType": "sansSerif",
+      "casing": "uppercase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 12,
+    "inspirationName": "aerialConsulting",
+    "name": {
+      "fontFamily": "Montserrat",
+      "fontType": "sansSerif",
+      "casing": "uppercase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    },
+    "tagline": {
+      "fontFamily": "Montserrat",
+      "fontType": "sansSerif",
+      "casing": "uppercase",
+      "fontSize": 18,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 4,
+    "inspirationName": "socialWine",
+    "name": {
+      "fontFamily": "Great Vibes",
+      "fontType": "script",
+      "casing": "pascalcase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 13,
+    "inspirationName": "socialWineLounge",
+    "name": {
+      "fontFamily": "Great Vibes",
+      "fontType": "script",
+      "casing": "pascalcase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    },
+    "tagline": {
+      "fontFamily": "Lato",
+      "fontType": "sansSerif",
+      "casing": "uppercase",
+      "fontSize": 18,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 5,
+    "inspirationName": "darkRoast",
+    "name": {
+      "fontFamily": "Chunk Five",
+      "fontType": "display",
+      "casing": "uppercase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 14,
+    "inspirationName": "darkRoastCafe",
+    "name": {
+      "fontFamily": "Chunk Five",
+      "fontType": "display",
+      "casing": "uppercase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    },
+    "tagline": {
+      "fontFamily": "Lato",
+      "fontType": "sansSerif",
+      "casing": "uppercase",
+      "fontSize": 18,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 6,
+    "inspirationName": "matchBook",
+    "name": {
+      "fontFamily": "Bebas Neue",
+      "fontType": "sansSerif",
+      "casing": "uppercase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 17,
+    "inspirationName": "matchBookStudios",
+    "name": {
+      "fontFamily": "Bebas Neue",
+      "fontType": "sansSerif",
+      "casing": "uppercase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    },
+    "tagline": {
+      "fontFamily": "Lato",
+      "fontType": "sansSerif",
+      "casing": "uppercase",
+      "fontSize": 18,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 7,
+    "inspirationName": "centurion",
+    "name": {
+      "fontFamily": "Cinzel",
+      "fontType": "serif",
+      "casing": "pascalcase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 16,
+    "inspirationName": "centurionFinancialGroup",
+    "name": {
+      "fontFamily": "Cinzel",
+      "fontType": "serif",
+      "casing": "pascalcase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    },
+    "tagline": {
+      "fontFamily": "Cinzel",
+      "fontType": "serif",
+      "casing": "pascalcase",
+      "fontSize": 18,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 8,
+    "inspirationName": "vantagePoint",
+    "name": {
+      "fontFamily": "Caviar Dreams Bold",
+      "fontType": "sansSerif",
+      "casing": "uppercase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 20,
+    "inspirationName": "vantagePointPhotography",
+    "name": {
+      "fontFamily": "Caviar Dreams Bold",
+      "fontType": "sansSerif",
+      "casing": "uppercase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    },
+    "tagline": {
+      "fontFamily": "Lato",
+      "fontType": "sansSerif",
+      "casing": "uppercase",
+      "fontSize": 18,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 15,
+    "inspirationName": "summerBelleClothing",
+    "name": {
+      "fontFamily": "Dancing Script",
+      "fontType": "script",
+      "casing": "pascalcase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    },
+    "tagline": {
+      "fontFamily": "Lato Bold",
+      "fontType": "sansSerif",
+      "casing": "uppercase",
+      "fontSize": 18,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 9,
+    "inspirationName": "honeyBee",
+    "name": {
+      "fontFamily": "Boogaloo",
+      "fontType": "display",
+      "casing": "uppercase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 18,
+    "inspirationName": "honeyBeeSweeten",
+    "name": {
+      "fontFamily": "Boogaloo",
+      "fontType": "display",
+      "casing": "uppercase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    },
+    "tagline": {
+      "fontFamily": "Boogaloo",
+      "fontType": "display",
+      "casing": "uppercase",
+      "fontSize": 18,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 10,
+    "inspirationName": "charlesPorter",
+    "name": {
+      "fontFamily": "Alex Brush",
+      "fontType": "script",
+      "casing": "pascalcase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 21,
+    "inspirationName": "charlesPorterRealEstate",
+    "name": {
+      "fontFamily": "Alex Brush",
+      "fontType": "script",
+      "casing": "pascalcase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    },
+    "tagline": {
+      "fontFamily": "Lato",
+      "fontType": "sansSerif",
+      "casing": "uppercase",
+      "fontSize": 18,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 11,
+    "inspirationName": "smokehouseBBQ",
+    "name": {
+      "fontFamily": "Oswald",
+      "fontType": "display",
+      "casing": "uppercase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    }
+  },
+  {
+    "id": 19,
+    "inspirationName": "smokehouseBBQRestaurant",
+    "name": {
+      "fontFamily": "Oswald",
+      "fontType": "display",
+      "casing": "uppercase",
+      "fontSize": 28,
+      "letterSpacing": 0
+    },
+    "tagline": {
+      "fontFamily": "Lato",
+      "fontType": "sansSerif",
+      "casing": "uppercase",
+      "fontSize": 18,
+      "letterSpacing": 0
     }
   }
 ]

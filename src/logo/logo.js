@@ -9,13 +9,12 @@ const LOGO_HEIGHT = 230;
 const LOGO_BACKGROUND = './images/logo-background-shadow.png';
 
 class Logo {
-  constructor(companyName, tagline, rules, companyNameColor, taglineColor, recipe, fontFamily, icons) {
+  constructor(companyName, tagline, rules, companyNameColor, taglineColor, recipe, icons) {
     this.companyName = companyName || 'Dopest';
     this.tagline = tagline || '';
     this.companyNameColor = companyNameColor;
     this.taglineColor = taglineColor;
     this.recipe = recipe;
-    this.fontFamily = fontFamily;
     this.icons = icons;
     this.rules = rules;
   }
@@ -50,7 +49,7 @@ class Logo {
      */
     name.font({
       fill: this.companyNameColor,
-      family: this.fontFamily,
+      family: this.rules.name.fontFamily,
       'letter-spacing': this.rules.name.letterSpacing,
       size: this.rules.name.fontSize,
     });

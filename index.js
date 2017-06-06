@@ -24,12 +24,16 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
   const colors = req.body.palettes.filter(p => p.isSelected);
   const logos = [];
 
-  fonts.getFonts().forEach((font) => {
+  let count = 0; // TODO refactor this.
+  fonts.getFonts().forEach(() => {
+    count += 1;
+    if (rules[count] === undefined) { // TODO refactor this.
+      count = 0;
+    }
     recipes.getRecipes().forEach((recipe) => {
       logos.push(
         new Logo(information.name, information.tagline,
-          rules[0][0], colors[0].hexcodes[1], colors[1].hexcodes[1], recipe,
-          font, []).generate());
+          rules[count], colors[0].hexcodes[1], colors[1].hexcodes[1], recipe, []).generate());
     });
   });
 
@@ -49,16 +53,18 @@ app.post('/api/logos/concepts', (req, res) => {
   const rules = inspirations.generateMoreConcepts();
   const information = new Information(req.body.companyName, req.body.tagline).getInformation();
   const colors = req.body.palettes.filter(p => p.isSelected);
-  console.log('COLORS', colors);
-
   const logos = [];
 
-  fonts.getFonts().forEach((font) => {
+  let count = 0; // TODO refactor this.
+  fonts.getFonts().forEach(() => {
+    count += 1;
+    if (rules[count] === undefined) { // TODO refactor this.
+      count = 0;
+    }
     recipes.getRecipes().forEach((recipe) => {
       logos.push(
         new Logo(information.name, information.tagline,
-          rules[0][0], colors[0].hexcodes[1], colors[1].hexcodes[1], recipe,
-          font, []).generate());
+          rules[count], colors[0].hexcodes[1], colors[1].hexcodes[1], recipe, []).generate());
     });
   });
 
