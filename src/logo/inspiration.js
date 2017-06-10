@@ -1,4 +1,4 @@
-const inspirations = require('../common/config/inspirations.json');
+const inspirations = require('../config/inspirations.json');
 const fonts = require('./fonts');
 
 class Inspiration {
