@@ -23,7 +23,7 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
   const rules = inspirations.getInspirations();
   const information = new Information(req.body.companyName, req.body.tagline).getInformation();
   const colors = new Colors(req.body.palettes);
-  const palettes = colors.getMatches();
+  const palettes = colors.applyRules();
   const logos = [];
 
   let count = 0; // TODO refactor this.
@@ -34,7 +34,6 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
     }
 
     palettes.forEach((palette) => {
-      console.log('palette', palette);
       recipes.getRecipes().forEach((recipe) => {
         logos.push(
           new Logo(information.name, information.tagline,

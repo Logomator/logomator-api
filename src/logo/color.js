@@ -25,10 +25,6 @@ class Color {
       } else {
         paletteSelectionName = palettes[0].name;
       }
-
-      console.log('Name 0', name[0])
-      console.log('Name 1', name[1]);
-
       if (color[paletteSelectionName]) {
         Object.keys(color).forEach((c) => {
           Object.keys(color[c]).forEach(k => {
@@ -46,6 +42,51 @@ class Color {
       names.push(selection.name);
     });
     return names;
+  }
+
+  applyRules() {
+    const palettes = this.getMatches();
+    const selections = [];
+    const taglineDefaultGrey = '#818691';
+    const taglineDefaultBlack = '#1A191C';
+
+    palettes.forEach((p) => {
+      // Variation 1
+      selections.push([
+        p[0], p[1],
+      ]);
+
+      // Variation 2
+      selections.push([
+        p[1], p[0],
+      ]);
+
+      // Variation 3
+      selections.push([
+        p[0], taglineDefaultGrey,
+      ]);
+
+      // Check if two palettes selected - rules deviate at variation 4
+      if (this.isTwoPalettesSelected(palettes)) {
+        selections.push([
+          p[1], taglineDefaultGrey,
+        ]);
+
+        selections.push([
+          p[0], taglineDefaultBlack,
+        ]);
+        
+        selections.push([
+          p[1], taglineDefaultBlack,
+        ]);
+      } else {
+        // Variation 4
+        selections.push([
+          p[1], taglineDefaultBlack,
+        ]);
+      }
+    });
+    return selections;
   }
 
   isTwoPalettesSelected(palettes) {
