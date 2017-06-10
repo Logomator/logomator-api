@@ -1,4 +1,4 @@
-const inspirations = require('../common/config/inspirations.json');
+const inspirations = require('../config/inspirations.json');
 const fonts = require('./fonts');
 
 class Inspiration {
@@ -53,9 +53,11 @@ class Inspiration {
         Math.floor(Math.random() * (fonts.getFontCasing().length))
         ];
 
-      i.tagline.casing = fonts.getFontCasing()[
-        Math.floor(Math.random() * (fonts.getFontCasing().length))
-        ];
+      if (i.tagline) {
+        i.tagline.casing = fonts.getFontCasing()[
+          Math.floor(Math.random() * (fonts.getFontCasing().length))
+          ];
+      }
     });
     return returnInspirations;
   }
