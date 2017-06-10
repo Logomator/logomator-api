@@ -32,6 +32,27 @@ class Color {
           });
         });
       }
+
+      // Check if two palettes were selected to grab the respective selections as well
+      // TODO refactor
+      if (this.isTwoPalettesSelected(palettes)) {
+
+        if (color[name[0]]) {
+          Object.keys(color).forEach((c) => {
+            Object.keys(color[c]).forEach(k => {
+              matches.push(color[c][k]);
+            });
+          });
+        }
+
+        if (color[name[1]]) {
+          Object.keys(color).forEach((c) => {
+            Object.keys(color[c]).forEach(k => {
+              matches.push(color[c][k]);
+            });
+          });
+        }
+      }
     });
     return matches;
   }
@@ -75,7 +96,7 @@ class Color {
         selections.push([
           p[0], taglineDefaultBlack,
         ]);
-        
+
         selections.push([
           p[1], taglineDefaultBlack,
         ]);
