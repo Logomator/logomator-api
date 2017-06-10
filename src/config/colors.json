@@ -1,0 +1,443 @@
+[
+  {
+    "Blue":
+    {
+      "colorComboOne": ["#272A57", "#59A3FF"],
+      "colorComboTwo":["#3C7AC0", "#73D9FF"],
+      "colorComboThree": ["#012245","#00AEF0"]
+    }
+  },
+  {
+    "BlueAqua":
+    {
+      "colorComboOne": ["#2F97C1", "#1CCAD8"],
+      "colorComboTwo":["#151C44", "#A4F9FC"],
+      "colorComboThree": ["#3B5998","#91F9E5"]
+    }
+  },
+  {
+    "BlueGreen":
+    {
+      "colorComboOne": ["#00AEEF", "#248232"],
+      "colorComboTwo":["#1246A2", "#7AE582"],
+      "colorComboThree": ["#012271","#A3C586"]
+    }
+  },
+  {
+    "BluePurple":
+    {
+      "colorComboOne": ["#5BC0EB", "#6D326D"],
+      "colorComboTwo":["#91D7F5", "#57467B"],
+      "colorComboThree": ["#004E98","#5D489F"]
+    }
+  },
+  {
+    "BluePink":
+    {
+      "colorComboOne": ["#03487F", "#FF28AE"],
+      "colorComboTwo":["#000078", "#AA0078"],
+      "colorComboThree": ["#020F5D","#FFAEAE"]
+    }
+  },
+  {
+    "BlueRed":
+    {
+      "colorComboOne": ["#2E2B74", "#EF4044"],
+      "colorComboTwo":["#3772FF", "#DF2935"],
+      "colorComboThree": ["#0099FF","#990033"]
+    }
+  },
+  {
+    "BlueOrange":
+    {
+      "colorComboOne": ["#0081CE", "#FEB237"],
+      "colorComboTwo":["#004E98", "#FF6700"],
+      "colorComboThree": ["#013068","#EE7317"]
+    }
+  },
+  {
+    "BlueYellow":
+    {
+      "colorComboOne": ["#013068", "#FDED2F"],
+      "colorComboTwo":["#21295C", "#FEC601"],
+      "colorComboThree": ["#016FB9","#FFC857"]
+    }
+  },
+  {
+    "BlueBrown":
+    {
+      "colorComboOne": ["#5688C7", "#382618"],
+      "colorComboTwo":["#0038A8", "#4C1C00"],
+      "colorComboThree": ["#3943B7","#5C3017"]
+    }
+  },
+  {
+    "BlueNeutral":
+    {
+      "colorComboOne": ["#0098FF", "#202022"],
+      "colorComboTwo":["#073B76", "#6F8792"],
+      "colorComboThree": ["#4A6FA5","#2F4858"]
+    }
+  },
+  {
+    "Aqua":
+    {
+      "colorComboOne": ["#275457", "#48D4CA"],
+      "colorComboTwo":["#41BAAC", "#AFFFF5"],
+      "colorComboThree": ["#07BEB8","#9CEAEF"]
+    }
+  },
+  {
+    "AquaGreen":
+    {
+      "colorComboOne": ["#95D9C3", "#A4F9C8"],
+      "colorComboTwo":["#41BAAC", "#B9E3C6"],
+      "colorComboThree": ["#41EAD4","#16C172"]
+    }
+  },
+  {
+    "AquaPurple":
+    {
+      "colorComboOne": ["#65C3B5", "#342C74"],
+      "colorComboTwo":["#93DBC8", "#765680"],
+      "colorComboThree": ["#41EAD4","#52489C"]
+    }
+  },
+  {
+    "AquaPink":
+    {
+      "colorComboOne": ["#41EAD4", "#EC368D"],
+      "colorComboTwo":["#5DFDCB", "#FF8484"],
+      "colorComboThree": ["#41BAAC","#F283B6"]
+    }
+  },
+  {
+    "AquaRed":
+    {
+      "colorComboOne": ["#5DFDCB", "#FF6B6B"],
+      "colorComboTwo":["#41EAD4", "#931621"],
+      "colorComboThree": ["#41BAAC","#FF0022"]
+    }
+  },
+  {
+    "AquaOrange":
+    {
+      "colorComboOne": ["#5DFDCB", "#FEB237"],
+      "colorComboTwo":["#41EAD4", "#CD5334"],
+      "colorComboThree": ["#41BAAC","#E4572E"]
+    }
+  },
+  {
+    "AquaYellow":
+    {
+      "colorComboOne": ["#5DFDCB", "#FFBC42"],
+      "colorComboTwo":["#41EAD4", "#F4E76E"],
+      "colorComboThree": ["#41BAAC","#FFF689"]
+    }
+  },
+  {
+    "AquaBrown":
+    {
+      "colorComboOne": ["#5DFDCB", "#443627"],
+      "colorComboTwo":["#41EAD4", "#6A3E37"],
+      "colorComboThree": ["#41BAAC","#60492C"]
+    }
+  },
+  {
+    "AquaNeutral":
+    {
+      "colorComboOne": ["#5DFDCB", "#202022"],
+      "colorComboTwo":["#41EAD4", "#757780"],
+      "colorComboThree": ["#41BAAC","#2E382E"]
+    }
+  },
+  {
+    "Green":
+    {
+      "colorComboOne": ["#2D5727", "#96BC33"],
+      "colorComboTwo":["#8CB620", "#BDE044"],
+      "colorComboThree": ["#248232","#2BA84A"]
+    }
+  },
+  {
+    "GreenPurple":
+    {
+      "colorComboOne": ["#3FB56A", "#2C1035"],
+      "colorComboTwo":["#92C944", "#604575"],
+      "colorComboThree": ["#B3D89C","#6B46BA"]
+    }
+  },
+  {
+    "GreenPink":
+    {
+      "colorComboOne": ["#006C2F", "#F00699"],
+      "colorComboTwo":["#509435", "#A80874"],
+      "colorComboThree": ["#2D5727","#FEA9C8"]
+    }
+  },
+  {
+    "GreenRed":
+    {
+      "colorComboOne": ["#006C2F", "#931621"],
+      "colorComboTwo":["#509435", "#DF2935"],
+      "colorComboThree": ["#2D5727","#EF4044"]
+    }
+  },
+  {
+    "GreenOrange":
+    {
+      "colorComboOne": ["#006C2F", "#E98A15"],
+      "colorComboTwo":["#509435", "#F44708"],
+      "colorComboThree": ["#2D5727","#F45D01"]
+    }
+  },
+  {
+    "GreenYellow":
+    {
+      "colorComboOne": ["#006C2F", "#F7C548"],
+      "colorComboTwo":["#509435", "#D5A021"],
+      "colorComboThree": ["#2D5727","#FFBA08"]
+    }
+  },
+  {
+    "GreenBrown":
+    {
+      "colorComboOne": ["#006C2F", "#312509"],
+      "colorComboTwo":["#509435", "#60492C"],
+      "colorComboThree": ["#2D5727","#81523F"]
+    }
+  },
+  {
+    "GreenNeutral":
+    {
+      "colorComboOne": ["#006C2F", "#171219"],
+      "colorComboTwo":["#509435", "#454955"],
+      "colorComboThree": ["#2D5727","#6E7271"]
+    }
+  },
+  {
+    "Purple":
+    {
+      "colorComboOne": ["#784390", "#C1ADFF"],
+      "colorComboTwo":["#6247AA", "#A06CD5"],
+      "colorComboThree": ["#7D81B1","#AFA4D8"]
+    }
+  },
+  {
+    "PurplePink":
+    {
+      "colorComboOne": ["#3B0086", "#DE0D92"],
+      "colorComboTwo":["#6200B3", "#FC60A8"],
+      "colorComboThree": ["#6247AA","#EFBCD5"]
+    }
+  },
+  {
+    "PurpleRed":
+    {
+      "colorComboOne": ["#3B0086", "#F03A47"],
+      "colorComboTwo":["#6200B3", "#A10702"],
+      "colorComboThree": ["#6247AA","#EF8275"]
+    }
+  },
+  {
+    "PurpleOrange":
+    {
+      "colorComboOne": ["#3B0086", "#F34213"],
+      "colorComboTwo":["#6200B3", "#F86624"],
+      "colorComboThree": ["#6247AA","#FE9000"]
+    }
+  },
+  {
+    "PurpleYellow":
+    {
+      "colorComboOne": ["#3B0086", "#F2CD5D"],
+      "colorComboTwo":["#6200B3", "#F9C80E"],
+      "colorComboThree": ["#6247AA","#FFDD4A"]
+    }
+  },
+  {
+    "PurpleBrown":
+    {
+      "colorComboOne": ["#3B0086", "#B27C66"],
+      "colorComboTwo":["#6200B3", "#B59194"],
+      "colorComboThree": ["#6247AA","#AEA3B0"]
+    }
+  },
+  {
+    "PurpleNeutral":
+    {
+      "colorComboOne": ["#3B0086", "#343434"],
+      "colorComboTwo":["#6200B3", "#292E1E"],
+      "colorComboThree": ["#6247AA","#595F72"]
+    }
+  },
+  {
+    "Pink":
+    {
+      "colorComboOne": ["#CB47A3", "#F786AA"],
+      "colorComboTwo":["#F900CC", "#FB5CDE"],
+      "colorComboThree": ["#FF599D","#F49CBB"]
+    }
+  },
+  {
+    "PinkRed":
+    {
+      "colorComboOne": ["#CB47A3", "#89023E"],
+      "colorComboTwo":["#F900CC", "#FF6663"],
+      "colorComboThree": ["#FF599D","#DD2D4A"]
+    }
+  },
+  {
+    "PinkOrange":
+    {
+      "colorComboOne": ["#CB47A3", "#EF5D60"],
+      "colorComboTwo":["#F900CC", "#E53D00"],
+      "colorComboThree": ["#FF599D","#E86252"]
+    }
+  },
+  {
+    "PinkYellow":
+    {
+      "colorComboOne": ["#CB47A3", "#EAD94C"],
+      "colorComboTwo":["#F900CC", "#FAFF00"],
+      "colorComboThree": ["#FF599D","#FFC43D"]
+    }
+  },
+  {
+    "PinkBrown":
+    {
+      "colorComboOne": ["#CB47A3", "#94524A"],
+      "colorComboTwo":["#F900CC", "#B59194"],
+      "colorComboThree": ["#FF599D","#A37774"]
+    }
+  },
+  {
+    "PinkNeutral":
+    {
+      "colorComboOne": ["#CB47A3", "#343434"],
+      "colorComboTwo":["#F900CC", "#292E1E"],
+      "colorComboThree": ["#FF599D","#484A47"]
+    }
+  },
+  {
+    "Red":
+    {
+      "colorComboOne": ["#A80025", "#FF5555"],
+      "colorComboTwo":["#D90429", "#F42443"],
+      "colorComboThree": ["#980000","#FF0000"]
+    }
+  },
+  {
+    "RedOrange":
+    {
+      "colorComboOne": ["#A80025", "#F77F00"],
+      "colorComboTwo":["#D90429", "#FF7F11"],
+      "colorComboThree": ["#980000","#D74E09"]
+    }
+  },
+  {
+    "RedYellow":
+    {
+      "colorComboOne": ["#A80025", "#FCD581"],
+      "colorComboTwo":["#D90429", "#F9C80E"],
+      "colorComboThree": ["#980000","#F2BB05"]
+    }
+  },
+  {
+    "RedBrown":
+    {
+      "colorComboOne": ["#A80025", "#590004"],
+      "colorComboTwo":["#D90429", "#3F220F"],
+      "colorComboThree": ["#980000","#A5402D"]
+    }
+  },
+  {
+    "RedNeutral":
+    {
+      "colorComboOne": ["#A80025", "#223127"],
+      "colorComboTwo":["#D90429", "#19180A"],
+      "colorComboThree": ["#980000","#2B2118"]
+    }
+  },
+  {
+    "Orange":
+    {
+      "colorComboOne": ["#FF6200", "#FFB143"],
+      "colorComboTwo":["#FFAE00", "#FFDA71"],
+      "colorComboThree": ["#D35400","#EB5E00"]
+    }
+  },
+  {
+    "OrangeYellow":
+    {
+      "colorComboOne": ["#FF6200", "#F6AE2D"],
+      "colorComboTwo":["#FFAE00", "#FCCA46"],
+      "colorComboThree": ["#D35400","#FBB02D"]
+    }
+  },
+  {
+    "OrangeBrown":
+    {
+      "colorComboOne": ["#FF6200", "#7E5920"],
+      "colorComboTwo":["#FFAE00", "#563F1B"],
+      "colorComboThree": ["#D35400","#D58936"]
+    }
+  },
+  {
+    "OrangeNeutral":
+    {
+      "colorComboOne": ["#FF6200", "#261C15"],
+      "colorComboTwo":["#FFAE00", "#020100"],
+      "colorComboThree": ["#D35400","#001514"]
+    }
+  },
+  {
+    "Yellow":
+    {
+      "colorComboOne": ["#F5B82E", "#FFD131"],
+      "colorComboTwo":["#F6CF02", "#F5DD03"],
+      "colorComboThree": ["#FFE55E","#FFF25E"]
+    }
+  },
+  {
+    "YellowBrown":
+    {
+      "colorComboOne": ["#F5B82E", "#694A38"],
+      "colorComboTwo":["#F6CF02", "#591F0A"],
+      "colorComboThree": ["#FFE55E","#CF995F"]
+    }
+  },
+  {
+    "YellowNeutral":
+    {
+      "colorComboOne": ["#F5B82E", "#020122"],
+      "colorComboTwo":["#F6CF02", "#393E41"],
+      "colorComboThree": ["#FFE55E","#020122"]
+    }
+  },
+  {
+    "Brown":
+    {
+      "colorComboOne": ["#241715", "#402A2C"],
+      "colorComboTwo":["#462521", "#8A6552"],
+      "colorComboThree": ["#412722","#DFA06E"]
+    }
+  },
+  {
+    "BrownNeutral":
+    {
+      "colorComboOne": ["#241715", "#494949"],
+      "colorComboTwo":["#462521", "#040303"],
+      "colorComboThree": ["#412722","#050401"]
+    }
+  },
+  {
+    "Neutral":
+    {
+      "colorComboOne": ["#010400", "#555555"],
+      "colorComboTwo":["#5F6168", "#959699"],
+      "colorComboThree": ["#414142","#CBCBCB"]
+    }
+  }
+
+]

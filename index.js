@@ -6,6 +6,7 @@ const Inspirations = require('./src/logo/inspiration');
 const Information = require('./src/logo/information');
 const recipes = require('./src/logo/recipes');
 const fonts = require('./src/logo/fonts');
+const Colors = require('./src/logo/color');
 
 const app = express();
 app.use(cors());
@@ -21,7 +22,8 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
   const inspirations = new Inspirations(req.body.inspirations);
   const rules = inspirations.getInspirations();
   const information = new Information(req.body.companyName, req.body.tagline).getInformation();
-  const colors = req.body.palettes.filter(p => p.isSelected);
+  const colors = new Colors(req.body.palettes);
+  const palettes = colors.applyRules();
   const logos = [];
 
   let count = 0; // TODO refactor this.
@@ -30,10 +32,15 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
     if (rules[count] === undefined) { // TODO refactor this.
       count = 0;
     }
-    recipes.getRecipes().forEach((recipe) => {
-      logos.push(
-        new Logo(information.name, information.tagline,
-          rules[count], colors[0].hexcodes[1], colors[1].hexcodes[1], recipe, []).generate());
+
+    palettes.forEach((palette, index) => {
+      if (index < 6) {
+        recipes.getRecipes().forEach((recipe) => {
+          logos.push(
+            new Logo(information.name, information.tagline,
+              rules[count], palette[0], palette[1], recipe, []).generate());
+        });
+      }
     });
   });
 
@@ -55,6 +62,7 @@ app.post('/api/logos/concepts', (req, res) => {
   const colors = req.body.palettes.filter(p => p.isSelected);
   const logos = [];
 
+  // Limit number of concepts returned to 6.
   let count = 0; // TODO refactor this.
   fonts.getFonts().forEach(() => {
     count += 1;

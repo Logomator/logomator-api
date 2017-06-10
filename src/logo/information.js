@@ -1,6 +1,5 @@
 class Information {
   constructor(name, tagline) {
-    console.log(name);
     this.name = name;
     this.tagline = tagline;
   }
