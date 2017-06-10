@@ -33,12 +33,14 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
       count = 0;
     }
 
-    palettes.forEach((palette) => {
-      recipes.getRecipes().forEach((recipe) => {
-        logos.push(
-          new Logo(information.name, information.tagline,
-            rules[count], palette[0], palette[1], recipe, []).generate());
-      });
+    palettes.forEach((palette, index) => {
+      if (index < 6) {
+        recipes.getRecipes().forEach((recipe) => {
+          logos.push(
+            new Logo(information.name, information.tagline,
+              rules[count], palette[0], palette[1], recipe, []).generate());
+        });
+      }
     });
   });
 
