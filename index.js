@@ -113,8 +113,6 @@ app.post('/api/survey', (req, res) => { // TODO: Change URL to something more se
     improvements: req.body.improvements,
   };
 
-  console.log(data);
-
   return res.send({
     statusCode: 200,
   });
