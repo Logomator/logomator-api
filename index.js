@@ -109,7 +109,7 @@ app.post('/api/survey', (req, res) => { // TODO: Change URL to something more se
   const data = {
     email: req.body.email,
     experience: req.body.experience,
-    mostLiked: req.body.most_liked,
+    mostLiked: req.body.mostLiked,
     improvements: req.body.improvements,
   };
 
