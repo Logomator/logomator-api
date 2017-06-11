@@ -49,6 +49,12 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
     Vary: 'Accept-Encoding',
   });
 
+  // Randomize logos TODO refactor this
+  for (let i = logos.length; i; i--) {
+    const j = Math.floor(Math.random() * i);
+    [logos[i - 1], logos[j]] = [logos[j], logos[i - 1]];
+  }
+
   return res.send({
     statusCode: 200,
     concepts: logos,
