@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
 const Logo = require('./src/logo/logo');
 const Inspirations = require('./src/logo/inspiration');
 const Information = require('./src/logo/information');
@@ -112,6 +113,34 @@ app.post('/api/survey', (req, res) => { // TODO: Change URL to something more se
     mostLiked: req.body.mostLiked,
     improvements: req.body.improvements,
   };
+
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, // secure:true for port 465, secure:false for port 587
+    auth: {
+      user: 'hunterg325@gmail.com', // TODO replace with support@logomator.com email address
+      pass: '',
+    },
+  });
+
+  // setup email data with unicode symbols
+  const mailOptions = {
+    from: 'hunterg325@gmail.com', // sender address
+    to: 'hunter@logomator.com, gus@logomator.com', // list of receivers
+    subject: `Survey response from ${data.email}`, // Subject line
+    text: `Experience: ${data.experience} 
+           Most liked: ${data.mostLiked} 
+           Improvements: ${data.improvements}`, // plain text body
+  };
+
+// send mail with defined transport object
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log('Error:', error);
+    }
+    console.log('Message %s sent: %s', info.messageId, info.response);
+  });
 
   return res.send({
     statusCode: 200,
