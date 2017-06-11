@@ -55,9 +55,15 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
     [logos[i - 1], logos[j]] = [logos[j], logos[i - 1]];
   }
 
+  const returnedLogos = [];
+
+  for (let i = 0; i < 6; i++) {
+    returnedLogos.push(logos[i]);
+  }
+
   return res.send({
     statusCode: 200,
-    concepts: logos,
+    concepts: returnedLogos,
   });
 });
 
@@ -87,9 +93,28 @@ app.post('/api/logos/concepts', (req, res) => {
     Vary: 'Accept-Encoding',
   });
 
+  const returnedLogos = [];
+
+  for (let i = 0; i < 6; i++) {
+    returnedLogos.push(logos[i]);
+  }
+
   return res.send({
     statusCode: 200,
-    concepts: logos,
+    concepts: returnedLogos,
+  });
+});
+
+app.post('/api/survey', (req, res) => { // TODO: Change URL to something more semantic
+  const data = {
+    email: req.body.email,
+    experience: req.body.experience,
+    mostLiked: req.body.mostLiked,
+    improvements: req.body.improvements,
+  };
+
+  return res.send({
+    statusCode: 200,
   });
 });
 
