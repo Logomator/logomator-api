@@ -150,6 +150,12 @@ app.post('/api/survey', (req, res) => { // TODO: Change URL to something more se
   });
 });
 
+app.post('/api/logo/download', (req, res) => {
+  return res.send({
+    statusCode: 200,
+  });
+});
+
 
 app.get('/logo', (req, res) => {
   const logos = [];
