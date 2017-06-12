@@ -119,8 +119,8 @@ app.post('/api/survey', (req, res) => { // TODO: Change URL to something more se
     port: 587,
     secure: false, // secure:true for port 465, secure:false for port 587
     auth: {
-      user: 'hunterg325@gmail.com', // TODO replace with support@logomator.com email address
-      pass: '',
+      user: 'dopelogos123@gmail.com', // TODO replace with support@logomator.com email address
+      pass: 'Awesomelogos123!',
     },
   });
 
@@ -129,9 +129,12 @@ app.post('/api/survey', (req, res) => { // TODO: Change URL to something more se
     from: 'hunterg325@gmail.com', // sender address
     to: 'hunter@logomator.com, gus@logomator.com', // list of receivers
     subject: `Survey response from ${data.email}`, // Subject line
-    text: `Experience: ${data.experience} 
-           Most liked: ${data.mostLiked} 
-           Improvements: ${data.improvements}`, // plain text body
+    html: `<h1 style="color:black;">Experience</h1> <br />
+            <p style="color: black;">${data.experience}</p> <br /> 
+            <h1 style="color:black;">Most liked</h1> <br />
+            <p style="color: black;">${data.mostLiked}</p> <br />
+            <h1 style="color:black;">Improvements</h1> <br />
+            <p style="color: black;">${data.improvements}</p>`,// plain text body
   };
 
 // send mail with defined transport object
