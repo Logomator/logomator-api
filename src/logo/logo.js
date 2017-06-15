@@ -22,8 +22,6 @@ class Logo {
   generate() {
     const draw = SVG(document.documentElement).size(300, 230);
     draw.rect(LOGO_WIDTH, LOGO_HEIGHT).fill('#fff');
-    draw.image(LOGO_BACKGROUND);
-
     /**
      * Check company name casing
      */

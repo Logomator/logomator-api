@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -8,6 +10,8 @@ const Information = require('./src/logo/information');
 const recipes = require('./src/logo/recipes');
 const fonts = require('./src/logo/fonts');
 const Colors = require('./src/logo/color');
+const Download = require('./src/logo/download');
+const zip = new require('node-zip')();
 
 const app = express();
 app.use(cors());
@@ -74,7 +78,6 @@ app.post('/api/logos/concepts', (req, res) => {
   const information = new Information(req.body.companyName, req.body.tagline).getInformation();
   const colors = req.body.palettes.filter(p => p.isSelected);
   const logos = [];
-
   // Limit number of concepts returned to 6.
   let count = 0; // TODO refactor this.
   fonts.getFonts().forEach(() => {
@@ -151,39 +154,26 @@ app.post('/api/survey', (req, res) => { // TODO: Change URL to something more se
 });
 
 app.post('/api/logo/download', (req, res) => {
-  return res.send({
-    statusCode: 200,
+  const download = new Download(req.body.logo);
+  const fileContent = download.getFullColorWhiteBackground();
+  const filepath = path.join(__dirname + '/logo.svg');
+
+  fs.writeFile(filepath, fileContent, [], (err) => {
+    if (err) throw err;
+
+    zip.file('logo.svg', fs.readFileSync(filepath));
+    const data = zip.generate({ base64: false, compression: 'DEFLATE' });
+    fs.writeFileSync('logos.zip', data, 'binary');
+    fs.chmodSync('logos.zip', '777');
+    res.download('logos.zip');
   });
 });
 
+app.get('/api/logo/:filename', (req, res) => {
 
-app.get('/logo', (req, res) => {
-  const logos = [];
-  const rules = [
-    {
-      '0': {
-        'name': {
-          'fontFamily': 'Proxima Nova',
-          'fontWeight': '500',
-          'fontType': 'serif',
-          'casing': 'uppercase',
-        },
-        'tagline': {
-          'fontFamily': 'Proxima Nova',
-          'fontWeight': '300',
-          'fontType': 'serif',
-          'casing': 'uppercase',
-        },
-      },
-    },
-  ];
-  recipes.getRecipes().forEach((recipe) => {
-    logos.push(
-      new Logo('Logomator', 'AI Powered Logos',
-        rules[0][0], '#FF6600', '#818691', recipe, []).generate());
-  });
-  return res.send(logos[2]);
+  return res.download('logos.zip');
 });
+
 
 app.listen(process.env.PORT || 8000, () => {
   console.log('Logomator API listening on port 8000!');
