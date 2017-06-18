@@ -29,25 +29,31 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
   const information = new Information(req.body.companyName, req.body.tagline).getInformation();
   const colors = new Colors(req.body.palettes);
   const palettes = colors.applyRules();
+  const characteristics = [];
   const logos = [];
 
   let count = 0; // TODO refactor this.
   fonts.getFonts().forEach(() => {
     count += 1;
+
     if (rules[count] === undefined) { // TODO refactor this.
       count = 0;
     }
-
-    palettes.forEach((palette, index) => {
-      if (index < 6) {
-        recipes.getRecipes().forEach((recipe) => {
-          logos.push(
-            new Logo(information.name, information.tagline,
-              rules[count], palette[0], palette[1], recipe, []).generate());
-        });
-      }
+    palettes.forEach((palette) => {
+      recipes.getRecipes().forEach((recipe) => {
+        characteristics.push([information.name, information.tagline,
+          rules[count], palette[0], palette[1], recipe, []]);
+      });
     });
   });
+
+  for (let i = 0; i < characteristics.length; i++) {
+    let logo = new Logo(characteristics[i][0], characteristics[i][1],
+      characteristics[i][2], characteristics[i][3],
+      characteristics[i][4], characteristics[i][5], []);
+    logos.push(logo);
+  }
+
 
   res.set({
     'Content-Type': 'image/svg+xml',
@@ -63,7 +69,7 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
   const returnedLogos = [];
 
   for (let i = 0; i < 6; i++) {
-    returnedLogos.push(logos[i]);
+    returnedLogos.push(logos[i].generate());
   }
 
   return res.send({
@@ -77,7 +83,9 @@ app.post('/api/logos/concepts', (req, res) => {
   const rules = inspirations.generateMoreConcepts();
   const information = new Information(req.body.companyName, req.body.tagline).getInformation();
   const colors = req.body.palettes.filter(p => p.isSelected);
+  const charcterisitcs = [];
   const logos = [];
+
   // Limit number of concepts returned to 6.
   let count = 0; // TODO refactor this.
   fonts.getFonts().forEach(() => {
@@ -86,11 +94,17 @@ app.post('/api/logos/concepts', (req, res) => {
       count = 0;
     }
     recipes.getRecipes().forEach((recipe) => {
-      logos.push(
-        new Logo(information.name, information.tagline,
-          rules[count], colors[0].hexcodes[1], colors[1].hexcodes[1], recipe, []).generate());
+      charcterisitcs.push([information.name, information.tagline,
+        rules[count], colors[0].hexcodes[1], colors[1].hexcode[1], recipe, []]);
     });
   });
+
+  charcterisitcs.forEach((char) => {
+    logos.push(
+      new Logo(char[0], char[1],
+        char[2], char[3], char[4], char[5], []).generate());
+  });
+  console.log('CHARS', charcterisitcs);
 
   res.set({
     'Content-Type': 'image/svg+xml',
@@ -155,7 +169,7 @@ app.post('/api/survey', (req, res) => { // TODO: Change URL to something more se
 
 app.post('/api/logo/download', (req, res) => {
   const download = new Download(req.body.logo);
-  const fileContent = download.getFullColorWhiteBackground();
+  const fileContent = download.getHighRes();
   const filepath = path.join(__dirname + '/logo.svg');
 
   fs.writeFile(filepath, fileContent, [], (err) => {
@@ -170,7 +184,6 @@ app.post('/api/logo/download', (req, res) => {
 });
 
 app.get('/api/logo/:filename', (req, res) => {
-
   return res.download('logos.zip');
 });
 

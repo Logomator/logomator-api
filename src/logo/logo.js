@@ -20,8 +20,10 @@ class Logo {
   }
 
   generate() {
-    const draw = SVG(document.documentElement).size(300, 230);
-    draw.rect(LOGO_WIDTH, LOGO_HEIGHT).fill('#fff');
+    const draw = SVG(document.documentElement).size(300, 230).attr('id', 'logo');
+    draw.viewbox(0, 0, 297, 210);
+    draw.rect(LOGO_WIDTH, LOGO_HEIGHT).fill('#fff').attr('id', 'rectBG');
+
     /**
      * Check company name casing
      */
@@ -59,6 +61,7 @@ class Logo {
     name.attr('y', this.recipe.companyNameY);
     name.attr('alignment-baseline', this.recipe.companyBaseline);
     name.attr('text-anchor', this.recipe.companyNameAnchor);
+    name.attr('id', 'companyNameCopy');
 
     /**
      * Check if recipe has tagline.
@@ -101,6 +104,7 @@ class Logo {
       tagline.attr('y', this.recipe.taglineY);
       tagline.attr('alignment-baseline', this.recipe.taglineBaseline);
       tagline.attr('text-anchor', 'middle');
+      tagline.attr('id', 'taglineCopy');
     }
 
     /**
