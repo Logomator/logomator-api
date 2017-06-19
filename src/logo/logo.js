@@ -6,7 +6,6 @@ const document = window.document;
 // Logo configuration
 const LOGO_WIDTH = 300;
 const LOGO_HEIGHT = 230;
-const LOGO_BACKGROUND = './images/logo-background-shadow.png';
 
 class Logo {
   constructor(companyName, tagline, rules, companyNameColor, taglineColor, recipe, icons) {
@@ -105,7 +104,9 @@ class Logo {
       tagline.attr('alignment-baseline', this.recipe.taglineBaseline);
       tagline.attr('text-anchor', 'middle');
       tagline.attr('id', 'taglineCopy');
+
     }
+
 
     /**
      * Check if recipe has accent
@@ -120,6 +121,8 @@ class Logo {
       line.y('50%');
       line.stroke({ color: '#818691', width: 1, linecap: 'round' });
     }
+
+    draw.defs();
 
     return draw.svg();
   }

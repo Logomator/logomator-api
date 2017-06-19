@@ -48,10 +48,9 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
   });
 
   for (let i = 0; i < characteristics.length; i++) {
-    let logo = new Logo(characteristics[i][0], characteristics[i][1],
+    logos.push(new Logo(characteristics[i][0], characteristics[i][1],
       characteristics[i][2], characteristics[i][3],
-      characteristics[i][4], characteristics[i][5], []);
-    logos.push(logo);
+      characteristics[i][4], characteristics[i][5], []));
   }
 
 
@@ -104,8 +103,6 @@ app.post('/api/logos/concepts', (req, res) => {
       new Logo(char[0], char[1],
         char[2], char[3], char[4], char[5], []).generate());
   });
-  console.log('CHARS', charcterisitcs);
-
   res.set({
     'Content-Type': 'image/svg+xml',
     Vary: 'Accept-Encoding',
@@ -169,7 +166,7 @@ app.post('/api/survey', (req, res) => { // TODO: Change URL to something more se
 
 app.post('/api/logo/download', (req, res) => {
   const download = new Download(req.body.logo);
-  const fileContent = download.getHighRes();
+  const fileContent = download.getHighResWithBlackBG();
   const filepath = path.join(__dirname + '/logo.svg');
 
   fs.writeFile(filepath, fileContent, [], (err) => {
