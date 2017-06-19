@@ -166,12 +166,11 @@ app.post('/api/survey', (req, res) => { // TODO: Change URL to something more se
 
 app.post('/api/logo/download', (req, res) => {
   const download = new Download(req.body.logo);
-  const fileContent = download.getHighResWithBlackBG();
+  const fileContent = download.getFullColorWhiteBackground();
   const filepath = path.join(__dirname + '/logo.svg');
 
   fs.writeFile(filepath, fileContent, [], (err) => {
     if (err) throw err;
-
     zip.file('logo.svg', fs.readFileSync(filepath));
     const data = zip.generate({ base64: false, compression: 'DEFLATE' });
     fs.writeFileSync('logos.zip', data, 'binary');
