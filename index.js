@@ -53,17 +53,16 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
       characteristics[i][4], characteristics[i][5], []));
   }
 
-
   res.set({
     'Content-Type': 'image/svg+xml',
     Vary: 'Accept-Encoding',
   });
 
   // Randomize logos TODO refactor this
-  for (let i = logos.length; i; i--) {
-    const j = Math.floor(Math.random() * i);
-    [logos[i - 1], logos[j]] = [logos[j], logos[i - 1]];
-  }
+  // for (let i = logos.length; i; i++) {
+  //   const j = Math.floor(Math.random() * i);
+  //   [logos[i - 1], logos[j]] = [logos[j], logos[i - 1]];
+  // }
 
   const returnedLogos = [];
 
@@ -101,7 +100,7 @@ app.post('/api/logos/concepts', (req, res) => {
   charcterisitcs.forEach((char) => {
     logos.push(
       new Logo(char[0], char[1],
-        char[2], char[3], char[4], char[5], []).generate());
+        char[2], char[3], char[4], char[5], []));
   });
   res.set({
     'Content-Type': 'image/svg+xml',
@@ -111,7 +110,7 @@ app.post('/api/logos/concepts', (req, res) => {
   const returnedLogos = [];
 
   for (let i = 0; i < 6; i++) {
-    returnedLogos.push(logos[i]);
+    returnedLogos.push(logos[i].generate());
   }
 
   return res.send({

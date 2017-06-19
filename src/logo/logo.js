@@ -102,7 +102,7 @@ class Logo {
       tagline.attr('x', this.recipe.taglineX);
       tagline.attr('y', this.recipe.taglineY);
       tagline.attr('alignment-baseline', this.recipe.taglineBaseline);
-      tagline.attr('text-anchor', 'middle');
+      tagline.attr('text-anchor', this.recipe.taglineAnchor);
       tagline.attr('id', 'taglineCopy');
 
     }
