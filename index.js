@@ -80,32 +80,42 @@ app.post('/api/logos/concepts', (req, res) => {
   const inspirations = new Inspirations(req.body.inspirations);
   const rules = inspirations.generateMoreConcepts();
   const information = new Information(req.body.companyName, req.body.tagline).getInformation();
-  const colors = req.body.palettes.filter(p => p.isSelected);
-  const charcterisitcs = [];
+  const colors = new Colors(req.body.palettes);
+  const palettes = colors.applyRules();
+  const characteristics = [];
   const logos = [];
 
-  // Limit number of concepts returned to 6.
   let count = 0; // TODO refactor this.
   fonts.getFonts().forEach(() => {
     count += 1;
+
     if (rules[count] === undefined) { // TODO refactor this.
       count = 0;
     }
-    recipes.getRecipes().forEach((recipe) => {
-      charcterisitcs.push([information.name, information.tagline,
-        rules[count], colors[0].hexcodes[1], colors[1].hexcode[1], recipe, []]);
+    palettes.forEach((palette) => {
+      recipes.getRecipes().forEach((recipe) => {
+        characteristics.push([information.name, information.tagline,
+          rules[count], palette[0], palette[1], recipe, []]);
+      });
     });
   });
 
-  charcterisitcs.forEach((char) => {
-    logos.push(
-      new Logo(char[0], char[1],
-        char[2], char[3], char[4], char[5], []));
-  });
+  for (let i = 0; i < characteristics.length; i++) {
+    logos.push(new Logo(characteristics[i][0], characteristics[i][1],
+      characteristics[i][2], characteristics[i][3],
+      characteristics[i][4], characteristics[i][5], []));
+  }
+
   res.set({
     'Content-Type': 'image/svg+xml',
     Vary: 'Accept-Encoding',
   });
+
+  // Randomize logos TODO refactor this
+  // for (let i = logos.length; i; i++) {
+  //   const j = Math.floor(Math.random() * i);
+  //   [logos[i - 1], logos[j]] = [logos[j], logos[i - 1]];
+  // }
 
   const returnedLogos = [];
 

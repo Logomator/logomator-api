@@ -66,6 +66,7 @@ class Logo {
      * Check if recipe has tagline.
      */
     if (this.recipe.hasTagline) {
+      console.log('RULES', this.rules);
       /**
        * Tagline casing rules.
        */
@@ -76,7 +77,7 @@ class Logo {
         case 'uppercase':
           this.tagline = this.tagline.toUpperCase();
           break;
-        case 'pascalCase':
+        case 'pascalcase':
           this.tagline = this.tagline.replace(/\w+/g, w => w[0].toUpperCase() +
           w.slice(1).toLowerCase());
           break;
