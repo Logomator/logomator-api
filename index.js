@@ -67,7 +67,8 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
   const returnedLogos = [];
 
   for (let i = 0; i < 6; i++) {
-    returnedLogos.push(logos[i].generate());
+    const logo = logos[i].generate();
+    returnedLogos.push(logo);
   }
 
   return res.send({
@@ -175,7 +176,7 @@ app.post('/api/survey', (req, res) => { // TODO: Change URL to something more se
 
 app.post('/api/logo/download', (req, res) => {
   const download = new Download(req.body.logo);
-  const fileContent = download.getFullColorWhiteBackground();
+  const fileContent = download.getHighRes();
   const filepath = path.join(__dirname + '/logo.svg');
 
   fs.writeFile(filepath, fileContent, [], (err) => {

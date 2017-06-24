@@ -19,9 +19,11 @@ class Logo {
   }
 
   generate() {
-    const draw = SVG(document.documentElement).size(300, 230).attr('id', 'logo');
+    console.log('generate');
+    const draw = new SVG(document.documentElement).size(300, 230).attr('id', 'logo');
+    const set = draw.set();
+    set.clear();
     draw.viewbox(0, 0, 297, 210);
-    draw.rect(LOGO_WIDTH, LOGO_HEIGHT).fill('#fff').attr('id', 'rectBG');
 
     /**
      * Check company name casing
@@ -62,11 +64,12 @@ class Logo {
     name.attr('text-anchor', this.recipe.companyNameAnchor);
     name.attr('id', 'companyNameCopy');
 
+    set.add(name);
+
     /**
      * Check if recipe has tagline.
      */
     if (this.recipe.hasTagline) {
-      console.log('RULES', this.rules);
       /**
        * Tagline casing rules.
        */
@@ -106,6 +109,7 @@ class Logo {
       tagline.attr('text-anchor', this.recipe.taglineAnchor);
       tagline.attr('id', 'taglineCopy');
 
+      set.add(tagline);
     }
 
 
@@ -123,9 +127,9 @@ class Logo {
       line.stroke({ color: '#818691', width: 1, linecap: 'round' });
     }
 
-    draw.defs();
-
-    return draw.svg();
+    const svg = draw.svg();
+    draw.clear();
+    return svg;
   }
 }
 
