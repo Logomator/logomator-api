@@ -154,21 +154,37 @@ class Logo {
     /**
      * Tagline positioning rules.
      */
-    this.taglineElement.attr('x', this.recipe.taglineX);
-    this.taglineElement.attr('y', this.recipe.taglineY);
     this.taglineElement.attr('alignment-baseline', this.recipe.taglineBaseline);
     this.taglineElement.attr('text-anchor', this.recipe.taglineAnchor);
     this.taglineElement.attr('id', 'taglineCopy');
     // const width = namePosition.w + 2;
     // tagline.attr('textLength', width);
-    return this.taglineElement;
+
+
+    const taglineProps = this.taglineElement.bbox();
+    const nameProps = this.companyNameElement.bbox();
+    const taglineX = 150;
+    const taglineY = 115 - (taglineProps.h / 2 - 13);
+
+    this.taglineElement.attr({
+      x: taglineX,
+      y: taglineY,
+    });
   }
   drawAccent(draw) {
     const line = draw.line(0, 0, 15, 0).stroke({ width: 1 });
-    const lineY = this.taglineElement.bbox().y2 - (this.taglineElement.bbox().h / 2);
-    const lineX = this.taglineElement.bbox().x2 - 23;
+    const line2 = draw.line(0, 0, 15, 0).stroke({ width: 1 });
+    const taglineProps = this.taglineElement.bbox();
+    console.log(taglineProps);
+    const lineY = taglineProps.y2 - (taglineProps.h / 2 / 2);
+    const lineX = taglineProps.x - (taglineProps.w / 2) - 23;
     line.attr({
       transform: `translate(${lineX}, ${lineY})`,
+    });
+    const line2Y = taglineProps.y2 - (taglineProps.h / 2 / 2);
+    const line2X = taglineProps.x + (taglineProps.w / 2) + 8;
+    line2.attr({
+      transform: `translate(${line2X}, ${line2Y})`,
     });
   }
 }
