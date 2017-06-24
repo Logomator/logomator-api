@@ -3,9 +3,31 @@ const SVG = require('svg.js')(window);
 
 const document = window.document;
 
-// Logo configuration
-const LOGO_WIDTH = 300;
-const LOGO_HEIGHT = 230;
+window.setFontDir(`${__dirname}/../../fonts`)
+  .setFontFamilyMappings({
+    'Montserrat': 'Montserrat-Regular.otf',
+    'Boogalo': 'Boogaloo-Regular.otf',
+    'Montserrat Semibold': 'Montserrat-SemiBold.otf',
+    'Montserrat Bold': 'Montserrat-Bold.otf',
+    'Abril Fat Face': 'AbrilFatface-Regular.otf',
+    'Alex Brush': 'AlexBrush-Regular.ttf',
+    'Bebas Neue': 'BebasNeue.otf',
+    'Caviar Dreams': 'CaviarDreams.ttf',
+    'Caviar Dreams Bold': 'Caviar_Dreams_Bold.ttf',
+    'Chunk Five': 'Chunkfive.otf',
+    'Cinzel': 'Cinzel-Regular.otf',
+    'Cinzel Bold': 'Cinzel-Bold.otf',
+    'Dancing Script': 'DancingScript-Regular.otf',
+    'Great Vibes': 'GreatVibes-Regular.otf',
+    'Happy Monkey': 'HappyMonkey-Regular.ttf',
+    'Lato': 'Lato-Regular.ttf',
+    'Lato Semi Bold': 'Lato-Semibold.ttf',
+    'Lato Bold': 'Lato-Bold.ttf',
+    'Lato Medium': 'Lato-Medium.ttf',
+    'Oswald': 'Oswald-Regular.ttf',
+    'Pacifico': 'Pacifico.ttf',
+
+  }).preloadFonts();
 
 class Logo {
   constructor(companyName, tagline, rules, companyNameColor, taglineColor, recipe, icons) {
@@ -19,10 +41,12 @@ class Logo {
   }
 
   generate() {
-    console.log('generate');
+    let tagline = null;
+    let taglineProps = null;
     const draw = new SVG(document.documentElement).size(300, 230).attr('id', 'logo');
+    draw.rect(300, 230).fill('#fff');
     const set = draw.set();
-    set.clear();
+
     draw.viewbox(0, 0, 297, 210);
 
     /**
@@ -87,7 +111,7 @@ class Logo {
         default:
           break;
       }
-      const tagline = draw.text('.').tspan(this.tagline);
+      tagline = draw.text('.').tspan(this.tagline);
 
       /**
        * Tagline font rules.
@@ -108,8 +132,11 @@ class Logo {
       tagline.attr('alignment-baseline', this.recipe.taglineBaseline);
       tagline.attr('text-anchor', this.recipe.taglineAnchor);
       tagline.attr('id', 'taglineCopy');
+      //const width = namePosition.w + 2;
+      //tagline.attr('textLength', width);
 
       set.add(tagline);
+      taglineProps = tagline.bbox();
     }
 
 
@@ -117,20 +144,32 @@ class Logo {
      * Check if recipe has accent
      */
     if (this.recipe.hasAccent) {
-      const lineWidth = ((21 * this.companyName.length) / 1.8) + 100;
-      const line = draw.line(lineWidth, 100, 100, 100);
-
-      const lineX = lineWidth - 102;
-
-      line.x(lineX);
-      line.y('50%');
-      line.stroke({ color: '#818691', width: 1, linecap: 'round' });
+      const line = draw.line(0, 0, 15, 0).stroke({ width: 1 });
+      console.log(taglineProps);
+      const lineY = taglineProps.y2 - (taglineProps.h / 2);
+      const lineX = taglineProps.x - 23;
+      line.attr({
+        transform: `translate(${lineX}, ${lineY})`,
+      });
     }
 
     const svg = draw.svg();
+
+    // Clear SVG properties
     draw.clear();
+
     return svg;
   }
+
+  // drawAccent(draw, tagline) {
+  //   const line = draw.line(0, 0, 15, 0).stroke({ width: 1 });
+  //   const taglineProps = tagline.bbox();
+  //   const lineY = taglineProps.y2 - (taglineProps.h / 2);
+  //   const lineX = taglineProps.x - 23;
+  //   line.attr({
+  //     transform: `translate(${lineX}, ${lineY})`,
+  //   });
+  // }
 }
 
 module.exports = Logo;
