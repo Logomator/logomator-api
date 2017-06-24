@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -8,6 +10,8 @@ const Information = require('./src/logo/information');
 const recipes = require('./src/logo/recipes');
 const fonts = require('./src/logo/fonts');
 const Colors = require('./src/logo/color');
+const Download = require('./src/logo/download');
+const zip = new require('node-zip')();
 
 const app = express();
 app.use(cors());
@@ -25,25 +29,29 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
   const information = new Information(req.body.companyName, req.body.tagline).getInformation();
   const colors = new Colors(req.body.palettes);
   const palettes = colors.applyRules();
+  const characteristics = [];
   const logos = [];
 
   let count = 0; // TODO refactor this.
   fonts.getFonts().forEach(() => {
     count += 1;
+
     if (rules[count] === undefined) { // TODO refactor this.
       count = 0;
     }
-
-    palettes.forEach((palette, index) => {
-      if (index < 6) {
-        recipes.getRecipes().forEach((recipe) => {
-          logos.push(
-            new Logo(information.name, information.tagline,
-              rules[count], palette[0], palette[1], recipe, []).generate());
-        });
-      }
+    palettes.forEach((palette) => {
+      recipes.getRecipes().forEach((recipe) => {
+        characteristics.push([information.name, information.tagline,
+          rules[count], palette[0], palette[1], recipe, []]);
+      });
     });
   });
+
+  for (let i = 0; i < characteristics.length; i++) {
+    logos.push(new Logo(characteristics[i][0], characteristics[i][1],
+      characteristics[i][2], characteristics[i][3],
+      characteristics[i][4], characteristics[i][5], []));
+  }
 
   res.set({
     'Content-Type': 'image/svg+xml',
@@ -51,15 +59,15 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
   });
 
   // Randomize logos TODO refactor this
-  for (let i = logos.length; i; i--) {
-    const j = Math.floor(Math.random() * i);
-    [logos[i - 1], logos[j]] = [logos[j], logos[i - 1]];
-  }
+  // for (let i = logos.length; i; i++) {
+  //   const j = Math.floor(Math.random() * i);
+  //   [logos[i - 1], logos[j]] = [logos[j], logos[i - 1]];
+  // }
 
   const returnedLogos = [];
 
   for (let i = 0; i < 6; i++) {
-    returnedLogos.push(logos[i]);
+    returnedLogos.push(logos[i].generate());
   }
 
   return res.send({
@@ -72,32 +80,47 @@ app.post('/api/logos/concepts', (req, res) => {
   const inspirations = new Inspirations(req.body.inspirations);
   const rules = inspirations.generateMoreConcepts();
   const information = new Information(req.body.companyName, req.body.tagline).getInformation();
-  const colors = req.body.palettes.filter(p => p.isSelected);
+  const colors = new Colors(req.body.palettes);
+  const palettes = colors.applyRules();
+  const characteristics = [];
   const logos = [];
 
-  // Limit number of concepts returned to 6.
   let count = 0; // TODO refactor this.
   fonts.getFonts().forEach(() => {
     count += 1;
+
     if (rules[count] === undefined) { // TODO refactor this.
       count = 0;
     }
-    recipes.getRecipes().forEach((recipe) => {
-      logos.push(
-        new Logo(information.name, information.tagline,
-          rules[count], colors[0].hexcodes[1], colors[1].hexcodes[1], recipe, []).generate());
+    palettes.forEach((palette) => {
+      recipes.getRecipes().forEach((recipe) => {
+        characteristics.push([information.name, information.tagline,
+          rules[count], palette[0], palette[1], recipe, []]);
+      });
     });
   });
+
+  for (let i = 0; i < characteristics.length; i++) {
+    logos.push(new Logo(characteristics[i][0], characteristics[i][1],
+      characteristics[i][2], characteristics[i][3],
+      characteristics[i][4], characteristics[i][5], []));
+  }
 
   res.set({
     'Content-Type': 'image/svg+xml',
     Vary: 'Accept-Encoding',
   });
 
+  // Randomize logos TODO refactor this
+  // for (let i = logos.length; i; i++) {
+  //   const j = Math.floor(Math.random() * i);
+  //   [logos[i - 1], logos[j]] = [logos[j], logos[i - 1]];
+  // }
+
   const returnedLogos = [];
 
   for (let i = 0; i < 6; i++) {
-    returnedLogos.push(logos[i]);
+    returnedLogos.push(logos[i].generate());
   }
 
   return res.send({
@@ -151,39 +174,24 @@ app.post('/api/survey', (req, res) => { // TODO: Change URL to something more se
 });
 
 app.post('/api/logo/download', (req, res) => {
-  return res.send({
-    statusCode: 200,
+  const download = new Download(req.body.logo);
+  const fileContent = download.getFullColorWhiteBackground();
+  const filepath = path.join(__dirname + '/logo.svg');
+
+  fs.writeFile(filepath, fileContent, [], (err) => {
+    if (err) throw err;
+    zip.file('logo.svg', fs.readFileSync(filepath));
+    const data = zip.generate({ base64: false, compression: 'DEFLATE' });
+    fs.writeFileSync('logos.zip', data, 'binary');
+    fs.chmodSync('logos.zip', '777');
+    res.download('logos.zip');
   });
 });
 
-
-app.get('/logo', (req, res) => {
-  const logos = [];
-  const rules = [
-    {
-      '0': {
-        'name': {
-          'fontFamily': 'Proxima Nova',
-          'fontWeight': '500',
-          'fontType': 'serif',
-          'casing': 'uppercase',
-        },
-        'tagline': {
-          'fontFamily': 'Proxima Nova',
-          'fontWeight': '300',
-          'fontType': 'serif',
-          'casing': 'uppercase',
-        },
-      },
-    },
-  ];
-  recipes.getRecipes().forEach((recipe) => {
-    logos.push(
-      new Logo('Logomator', 'AI Powered Logos',
-        rules[0][0], '#FF6600', '#818691', recipe, []).generate());
-  });
-  return res.send(logos[2]);
+app.get('/api/logo/:filename', (req, res) => {
+  return res.download('logos.zip');
 });
+
 
 app.listen(process.env.PORT || 8000, () => {
   console.log('Logomator API listening on port 8000!');

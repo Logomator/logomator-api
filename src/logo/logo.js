@@ -6,7 +6,6 @@ const document = window.document;
 // Logo configuration
 const LOGO_WIDTH = 300;
 const LOGO_HEIGHT = 230;
-const LOGO_BACKGROUND = './images/logo-background-shadow.png';
 
 class Logo {
   constructor(companyName, tagline, rules, companyNameColor, taglineColor, recipe, icons) {
@@ -20,9 +19,9 @@ class Logo {
   }
 
   generate() {
-    const draw = SVG(document.documentElement).size(300, 230);
-    draw.rect(LOGO_WIDTH, LOGO_HEIGHT).fill('#fff');
-    draw.image(LOGO_BACKGROUND);
+    const draw = SVG(document.documentElement).size(300, 230).attr('id', 'logo');
+    draw.viewbox(0, 0, 297, 210);
+    draw.rect(LOGO_WIDTH, LOGO_HEIGHT).fill('#fff').attr('id', 'rectBG');
 
     /**
      * Check company name casing
@@ -61,11 +60,13 @@ class Logo {
     name.attr('y', this.recipe.companyNameY);
     name.attr('alignment-baseline', this.recipe.companyBaseline);
     name.attr('text-anchor', this.recipe.companyNameAnchor);
+    name.attr('id', 'companyNameCopy');
 
     /**
      * Check if recipe has tagline.
      */
     if (this.recipe.hasTagline) {
+      console.log('RULES', this.rules);
       /**
        * Tagline casing rules.
        */
@@ -76,7 +77,7 @@ class Logo {
         case 'uppercase':
           this.tagline = this.tagline.toUpperCase();
           break;
-        case 'pascalCase':
+        case 'pascalcase':
           this.tagline = this.tagline.replace(/\w+/g, w => w[0].toUpperCase() +
           w.slice(1).toLowerCase());
           break;
@@ -102,8 +103,11 @@ class Logo {
       tagline.attr('x', this.recipe.taglineX);
       tagline.attr('y', this.recipe.taglineY);
       tagline.attr('alignment-baseline', this.recipe.taglineBaseline);
-      tagline.attr('text-anchor', 'middle');
+      tagline.attr('text-anchor', this.recipe.taglineAnchor);
+      tagline.attr('id', 'taglineCopy');
+
     }
+
 
     /**
      * Check if recipe has accent
@@ -118,6 +122,8 @@ class Logo {
       line.y('50%');
       line.stroke({ color: '#818691', width: 1, linecap: 'round' });
     }
+
+    draw.defs();
 
     return draw.svg();
   }

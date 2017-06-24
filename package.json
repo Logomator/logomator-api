@@ -13,12 +13,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "adm-zip": "^0.4.7",
     "body-parser": "^1.17.2",
     "cors": "^2.8.3",
     "express": "^4.15.2",
+    "express-zip": "^2.0.1",
     "expressjs": "^1.0.1",
+    "node-zip": "^1.1.1",
     "nodemailer": "^4.0.1",
     "svg.js": "^2.6.1",
+    "svg2png": "^4.1.1",
     "svgdom": "0.0.10",
     "the-noun-project": "^2.0.1"
   },
