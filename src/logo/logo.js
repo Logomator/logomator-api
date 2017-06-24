@@ -38,17 +38,40 @@ class Logo {
     this.recipe = recipe;
     this.icons = icons;
     this.rules = rules;
+    this.companyNameElement = null;
+    this.taglineElement = null;
   }
 
   generate() {
-    let tagline = null;
-    let taglineProps = null;
     const draw = new SVG(document.documentElement).size(300, 230).attr('id', 'logo');
-    draw.rect(300, 230).fill('#fff');
-    const set = draw.set();
-
     draw.viewbox(0, 0, 297, 210);
 
+    this.drawCompanyName(draw);
+
+    /**
+     * Check if recipe has tagline.
+     */
+    if (this.recipe.hasTagline) {
+      this.drawTagline(draw);
+    }
+
+
+    /**
+     * Check if recipe has accent
+     */
+    if (this.recipe.hasAccent) {
+      this.drawAccent(draw);
+    }
+
+    const svg = draw.svg();
+
+    // Clear SVG properties
+    draw.clear();
+
+    return svg;
+  }
+
+  drawCompanyName(draw) {
     /**
      * Check company name casing
      */
@@ -67,12 +90,12 @@ class Logo {
         break;
     }
 
-    const name = draw.text('.').tspan(this.companyName);
+    this.companyNameElement = draw.text('').tspan(this.companyName);
 
     /**
      * Company name font rules.
      */
-    name.font({
+    this.companyNameElement.font({
       fill: this.companyNameColor,
       family: this.rules.name.fontFamily,
       'letter-spacing': this.rules.name.letterSpacing,
@@ -82,94 +105,72 @@ class Logo {
     /**
      * Company name positioning rules.
      */
-    name.attr('x', this.recipe.companyNameX);
-    name.attr('y', this.recipe.companyNameY);
-    name.attr('alignment-baseline', this.recipe.companyBaseline);
-    name.attr('text-anchor', this.recipe.companyNameAnchor);
-    name.attr('id', 'companyNameCopy');
+    this.companyNameElement.attr('alignment-baseline', this.recipe.companyBaseline);
+    this.companyNameElement.attr('text-anchor', this.recipe.companyNameAnchor);
+    this.companyNameElement.attr('id', 'companyNameCopy');
 
-    set.add(name);
+    const nameProps = this.companyNameElement.bbox();
 
-    /**
-     * Check if recipe has tagline.
-     */
-    if (this.recipe.hasTagline) {
-      /**
-       * Tagline casing rules.
-       */
-      switch (this.rules.tagline.casing) {
-        case 'lowercase':
-          this.tagline = this.tagline.toLowerCase();
-          break;
-        case 'uppercase':
-          this.tagline = this.tagline.toUpperCase();
-          break;
-        case 'pascalcase':
-          this.tagline = this.tagline.replace(/\w+/g, w => w[0].toUpperCase() +
-          w.slice(1).toLowerCase());
-          break;
-        default:
-          break;
-      }
-      tagline = draw.text('.').tspan(this.tagline);
+    const nameX = 150;
+    const nameY = 115 - (nameProps.h / 2);
 
-      /**
-       * Tagline font rules.
-       */
-      tagline.font({
-        fill: this.taglineColor,
-        family: this.rules.tagline.fontFamily,
-        weight: this.rules.tagline.fontWeight,
-        'letter-spacing': this.rules.tagline.letterSpacing,
-        size: this.rules.tagline.fontSize,
-      });
-
-      /**
-       * Tagline positioning rules.
-       */
-      tagline.attr('x', this.recipe.taglineX);
-      tagline.attr('y', this.recipe.taglineY);
-      tagline.attr('alignment-baseline', this.recipe.taglineBaseline);
-      tagline.attr('text-anchor', this.recipe.taglineAnchor);
-      tagline.attr('id', 'taglineCopy');
-      //const width = namePosition.w + 2;
-      //tagline.attr('textLength', width);
-
-      set.add(tagline);
-      taglineProps = tagline.bbox();
-    }
-
-
-    /**
-     * Check if recipe has accent
-     */
-    if (this.recipe.hasAccent) {
-      const line = draw.line(0, 0, 15, 0).stroke({ width: 1 });
-      console.log(taglineProps);
-      const lineY = taglineProps.y2 - (taglineProps.h / 2);
-      const lineX = taglineProps.x - 23;
-      line.attr({
-        transform: `translate(${lineX}, ${lineY})`,
-      });
-    }
-
-    const svg = draw.svg();
-
-    // Clear SVG properties
-    draw.clear();
-
-    return svg;
+    this.companyNameElement.attr({
+      x: nameX,
+      y: nameY,
+    });
   }
 
-  // drawAccent(draw, tagline) {
-  //   const line = draw.line(0, 0, 15, 0).stroke({ width: 1 });
-  //   const taglineProps = tagline.bbox();
-  //   const lineY = taglineProps.y2 - (taglineProps.h / 2);
-  //   const lineX = taglineProps.x - 23;
-  //   line.attr({
-  //     transform: `translate(${lineX}, ${lineY})`,
-  //   });
-  // }
+  drawTagline(draw) {
+    /**
+     * Tagline casing rules.
+     */
+    switch (this.rules.tagline.casing) {
+      case 'lowercase':
+        this.tagline = this.tagline.toLowerCase();
+        break;
+      case 'uppercase':
+        this.tagline = this.tagline.toUpperCase();
+        break;
+      case 'pascalcase':
+        this.tagline = this.tagline.replace(/\w+/g, w => w[0].toUpperCase() +
+        w.slice(1).toLowerCase());
+        break;
+      default:
+        break;
+    }
+    this.taglineElement = draw.text('').tspan(this.tagline);
+
+    /**
+     * Tagline font rules.
+     */
+    this.taglineElement.font({
+      fill: this.taglineColor,
+      family: this.rules.tagline.fontFamily,
+      weight: this.rules.tagline.fontWeight,
+      'letter-spacing': this.rules.tagline.letterSpacing,
+      size: this.rules.tagline.fontSize,
+    });
+
+    /**
+     * Tagline positioning rules.
+     */
+    this.taglineElement.attr('x', this.recipe.taglineX);
+    this.taglineElement.attr('y', this.recipe.taglineY);
+    this.taglineElement.attr('alignment-baseline', this.recipe.taglineBaseline);
+    this.taglineElement.attr('text-anchor', this.recipe.taglineAnchor);
+    this.taglineElement.attr('id', 'taglineCopy');
+    // const width = namePosition.w + 2;
+    // tagline.attr('textLength', width);
+    return this.taglineElement;
+  }
+  drawAccent(draw) {
+    const line = draw.line(0, 0, 15, 0).stroke({ width: 1 });
+    const lineY = this.taglineElement.bbox().y2 - (this.taglineElement.bbox().h / 2);
+    const lineX = this.taglineElement.bbox().x2 - 23;
+    line.attr({
+      transform: `translate(${lineX}, ${lineY})`,
+    });
+  }
 }
 
 module.exports = Logo;
