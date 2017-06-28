@@ -25,7 +25,8 @@
       "fontType": "sansSerif",
       "casing": "pascalcase",
       "fontSize": 18,
-      "letterSpacing": 0
+      "letterSpacing": 0,
+      "taglinePlacement": "right"
     }
   },
   {
@@ -54,7 +55,8 @@
       "fontType": "sansSerif",
       "casing": "pascalcase",
       "fontSize": 18,
-      "letterSpacing": 0
+      "letterSpacing": 0,
+      "taglinePlacement": "left"
     }
   },
   {
@@ -83,7 +85,8 @@
       "fontType": "sansSerif",
       "casing": "uppercase",
       "fontSize": 18,
-      "letterSpacing": 0
+      "letterSpacing": 0,
+      "taglinePlacement": "middle"
     }
   },
   {
@@ -112,7 +115,15 @@
       "fontType": "sansSerif",
       "casing": "uppercase",
       "fontSize": 18,
-      "letterSpacing": 0
+      "letterSpacing": 0,
+      "taglinePlacement": "middle"
+    },
+    "accent": {
+      "accentType": "line",
+      "accentCount": 2,
+      "accentPlacement": "bothSidesOfTagline",
+      "accentWidth": 15,
+      "accentHeight": 1
     }
   },
   {
@@ -141,7 +152,15 @@
       "fontType": "sansSerif",
       "casing": "uppercase",
       "fontSize": 18,
-      "letterSpacing": 0
+      "letterSpacing": 0,
+      "taglinePlacement": "middle"
+    },
+    "accent": {
+      "accentType": "line",
+      "accentCount": 2,
+      "accentPlacement": "bothSidesOfTagline",
+      "accentWidth": 67,
+      "accentHeight": 1
     }
   },
   {
@@ -170,7 +189,15 @@
       "fontType": "sansSerif",
       "casing": "uppercase",
       "fontSize": 18,
-      "letterSpacing": 0
+      "letterSpacing": 0,
+      "taglinePlacement": "middle"
+    },
+    "accent": {
+      "accentType": "circle",
+      "accentCount": 2,
+      "accentPlacement": "bothSidesOfTagline",
+      "accentWidth": 3,
+      "accentHeight": 3
     }
   },
   {
@@ -199,7 +226,15 @@
       "fontType": "serif",
       "casing": "pascalcase",
       "fontSize": 18,
-      "letterSpacing": 0
+      "letterSpacing": 0,
+      "taglinePlacement": "belowAccent"
+    },
+    "accent": {
+      "accentType": "line",
+      "accentCount": 1,
+      "accentPlacement": "betweenNameAndTagline",
+      "accentWidth": 173,
+      "accentHeight": 1
     }
   },
   {
@@ -228,7 +263,15 @@
       "fontType": "sansSerif",
       "casing": "uppercase",
       "fontSize": 18,
-      "letterSpacing": 0
+      "letterSpacing": 0,
+      "taglinePlacement": "right"
+    },
+    "accent": {
+      "accentType": "line",
+      "accentCount": 1,
+      "accentPlacement": "left",
+      "accentWidth": 97,
+      "accentHeight": 5
     }
   },
   {

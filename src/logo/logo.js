@@ -35,31 +35,39 @@ class Logo {
     this.tagline = tagline || '';
     this.companyNameColor = companyNameColor;
     this.taglineColor = taglineColor;
-    this.recipe = recipe;
     this.icons = icons;
     this.rules = rules;
     this.companyNameElement = null;
     this.taglineElement = null;
+    this.companyNameY = null;
   }
 
   generate() {
     const draw = new SVG(document.documentElement).size(300, 230).attr('id', 'logo');
     draw.viewbox(0, 0, 297, 210);
 
+    if (!this.rules.tagline) {
+      return this.drawCompanyName(draw);
+    }
+
     this.drawCompanyName(draw);
 
     /**
      * Check if recipe has tagline.
      */
-    if (this.recipe.hasTagline) {
+    if (this.rules.tagline) {
+      console.log('hit');
       this.drawTagline(draw);
     }
+
+
+    console.log(this.rules);
 
 
     /**
      * Check if recipe has accent
      */
-    if (this.recipe.hasAccent) {
+    if (this.rules.accent) {
       this.drawAccent(draw);
     }
 
@@ -105,14 +113,35 @@ class Logo {
     /**
      * Company name positioning rules.
      */
-    this.companyNameElement.attr('alignment-baseline', this.recipe.companyBaseline);
-    this.companyNameElement.attr('text-anchor', this.recipe.companyNameAnchor);
+
+    /**
+     * Check if tagline placement is left, if so, remove text anchor middle.
+     */
+    if (this.rules.tagline && this.rules.tagline.taglinePlacement === 'left') {
+      this.companyNameElement.attr('text-anchor', '');
+    } else {
+      this.companyNameElement.attr('text-anchor', 'middle');
+    }
+
+    if (!this.rules.tagline) {
+      this.companyNameElement.attr({
+        x: '50%',
+        y: '50%',
+        'text-anchor': 'middle',
+        'alignment-baseline': 'middle',
+      });
+      const svg = draw.svg();
+      draw.clear();
+      return svg;
+    }
+
     this.companyNameElement.attr('id', 'companyNameCopy');
 
     const nameProps = this.companyNameElement.bbox();
 
-    const nameX = 150;
+    const nameX = 150 - this.companyNameElement.bbox().w / 2;
     const nameY = 115 - (nameProps.h / 2);
+    this.companyNameY = nameY;
 
     this.companyNameElement.attr({
       x: nameX,
@@ -150,34 +179,81 @@ class Logo {
       'letter-spacing': this.rules.tagline.letterSpacing,
       size: this.rules.tagline.fontSize,
     });
-
-    /**
-     * Tagline positioning rules.
-     */
-    this.taglineElement.attr('alignment-baseline', this.recipe.taglineBaseline);
-    this.taglineElement.attr('text-anchor', this.recipe.taglineAnchor);
     this.taglineElement.attr('id', 'taglineCopy');
+
+    switch (this.rules.tagline.taglinePlacement) {
+      /**
+       * Tagline positioning rules.
+       */
+      case 'middle': {
+        const taglineX = 150;
+        const taglineY = this.companyNameY;
+
+        this.taglineElement.attr({
+          x: taglineX,
+          y: taglineY,
+          'alignment-baseline': 'middle',
+          'text-anchor': 'middle',
+        });
+        break;
+      }
+
+      case 'left': {
+        const taglineX = this.companyNameElement.bbox().x;
+        const taglineY = this.companyNameY + (this.taglineElement.bbox().h);
+
+        this.taglineElement.attr({
+          x: taglineX,
+          y: taglineY,
+        });
+        break;
+      }
+
+      case 'right': {
+        const taglineX = 150;
+        const taglineY = this.companyNameY;
+
+        this.taglineElement.attr({
+          x: taglineX,
+          y: taglineY,
+        });
+        break;
+      }
+
+      case 'belowAccent': {
+        const taglineX = 150;
+        const taglineY = this.companyNameY;
+
+        this.taglineElement.attr({
+          x: taglineX,
+          y: taglineY,
+        });
+        break;
+      }
+
+      default: {
+        const taglineX = 150;
+        const taglineY = this.companyNameY;
+
+        this.taglineElement.attr({
+          x: taglineX,
+          y: taglineY,
+        });
+        break;
+      }
+    }
+
     // const width = namePosition.w + 2;
     // tagline.attr('textLength', width);
-
-
-    const taglineProps = this.taglineElement.bbox();
-    const nameProps = this.companyNameElement.bbox();
-    const taglineX = 150;
-    const taglineY = 115 - (taglineProps.h / 2 - 13);
-
-    this.taglineElement.attr({
-      x: taglineX,
-      y: taglineY,
-    });
   }
+
   drawAccent(draw) {
+    console.log('accent');
     const line = draw.line(0, 0, 15, 0).stroke({ width: 1 });
     const line2 = draw.line(0, 0, 15, 0).stroke({ width: 1 });
     const taglineProps = this.taglineElement.bbox();
-    console.log(taglineProps);
     const lineY = taglineProps.y2 - (taglineProps.h / 2 / 2);
-    const lineX = taglineProps.x - (taglineProps.w / 2) - 23;
+    const lineX = taglineProps.x - (taglineProps.w / 2) - 22;
     line.attr({
       transform: `translate(${lineX}, ${lineY})`,
     });
