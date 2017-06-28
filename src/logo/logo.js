@@ -197,7 +197,7 @@ class Logo {
 
       case 'right': {
         const taglineX = 150;
-        const taglineY = this.companyNameY;
+        const taglineY = this.companyNameY + (this.taglineElement.bbox().h);
 
         this.taglineElement.attr({
           x: taglineX,
@@ -272,6 +272,17 @@ class Logo {
         });
         const lineY = taglineProps.y - (taglineProps.h / 2) + 6;
         const lineX = 150 - (173 / 2);
+        line.attr({
+          transform: `translate(${lineX}, ${lineY})`,
+        });
+        break;
+      }
+      case 'left': {
+        line = draw.line(0, 0, 97, 0).stroke({
+          width: 5,
+        });
+        const lineY = taglineProps.y + (taglineProps.h / 2);
+        const lineX = taglineProps.x - 100;
         line.attr({
           transform: `translate(${lineX}, ${lineY})`,
         });
