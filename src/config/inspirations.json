@@ -121,7 +121,7 @@
     "accent": {
       "accentType": "line",
       "accentCount": 2,
-      "accentPlacement": "bothSidesOfTagline",
+      "accentPlacement": "linesBothSidesOfTagline",
       "accentWidth": 15,
       "accentHeight": 1
     }
@@ -158,7 +158,7 @@
     "accent": {
       "accentType": "line",
       "accentCount": 2,
-      "accentPlacement": "bothSidesOfTagline",
+      "accentPlacement": "linesBothSidesOfTagline",
       "accentWidth": 67,
       "accentHeight": 1
     }
@@ -195,7 +195,7 @@
     "accent": {
       "accentType": "circle",
       "accentCount": 2,
-      "accentPlacement": "bothSidesOfTagline",
+      "accentPlacement": "circlesBothSidesOfTagline",
       "accentWidth": 3,
       "accentHeight": 3
     }
@@ -232,7 +232,7 @@
     "accent": {
       "accentType": "line",
       "accentCount": 1,
-      "accentPlacement": "betweenNameAndTagline",
+      "accentPlacement": "lineBetweenNameAndTagline",
       "accentWidth": 173,
       "accentHeight": 1
     }

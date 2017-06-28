@@ -30,7 +30,7 @@ window.setFontDir(`${__dirname}/../../fonts`)
   }).preloadFonts();
 
 class Logo {
-  constructor(companyName, tagline, rules, companyNameColor, taglineColor, recipe, icons) {
+  constructor(companyName, tagline, rules, companyNameColor, taglineColor, icons) {
     this.companyName = companyName || 'Dopest';
     this.tagline = tagline || '';
     this.companyNameColor = companyNameColor;
@@ -56,13 +56,8 @@ class Logo {
      * Check if recipe has tagline.
      */
     if (this.rules.tagline) {
-      console.log('hit');
       this.drawTagline(draw);
     }
-
-
-    console.log(this.rules);
-
 
     /**
      * Check if recipe has accent
@@ -117,11 +112,6 @@ class Logo {
     /**
      * Check if tagline placement is left, if so, remove text anchor middle.
      */
-    if (this.rules.tagline && this.rules.tagline.taglinePlacement === 'left') {
-      this.companyNameElement.attr('text-anchor', '');
-    } else {
-      this.companyNameElement.attr('text-anchor', 'middle');
-    }
 
     if (!this.rules.tagline) {
       this.companyNameElement.attr({
@@ -135,11 +125,9 @@ class Logo {
       return svg;
     }
 
-    this.companyNameElement.attr('id', 'companyNameCopy');
-
     const nameProps = this.companyNameElement.bbox();
 
-    const nameX = 150 - this.companyNameElement.bbox().w / 2;
+    const nameX = 150 - nameProps.w / 2;
     const nameY = 115 - (nameProps.h / 2);
     this.companyNameY = nameY;
 
@@ -186,14 +174,12 @@ class Logo {
        * Tagline positioning rules.
        */
       case 'middle': {
-        const taglineX = 150;
-        const taglineY = this.companyNameY;
+        const taglineX = 150 - this.taglineElement.bbox().w / 2;
+        const taglineY = this.companyNameY + (this.taglineElement.bbox().h);
 
         this.taglineElement.attr({
           x: taglineX,
           y: taglineY,
-          'alignment-baseline': 'middle',
-          'text-anchor': 'middle',
         });
         break;
       }
@@ -221,8 +207,9 @@ class Logo {
       }
 
       case 'belowAccent': {
-        const taglineX = 150;
-        const taglineY = this.companyNameY;
+        const taglineProps = this.taglineElement.bbox();
+        const taglineX = 150 - (taglineProps.w / 2);
+        const taglineY = this.companyNameY + (taglineProps.h + 10);
 
         this.taglineElement.attr({
           x: taglineX,
@@ -248,20 +235,62 @@ class Logo {
   }
 
   drawAccent(draw) {
-    console.log('accent');
-    const line = draw.line(0, 0, 15, 0).stroke({ width: 1 });
-    const line2 = draw.line(0, 0, 15, 0).stroke({ width: 1 });
     const taglineProps = this.taglineElement.bbox();
-    const lineY = taglineProps.y2 - (taglineProps.h / 2 / 2);
-    const lineX = taglineProps.x - (taglineProps.w / 2) - 22;
-    line.attr({
-      transform: `translate(${lineX}, ${lineY})`,
-    });
-    const line2Y = taglineProps.y2 - (taglineProps.h / 2 / 2);
-    const line2X = taglineProps.x + (taglineProps.w / 2) + 8;
-    line2.attr({
-      transform: `translate(${line2X}, ${line2Y})`,
-    });
+    let circle;
+    let circle2;
+    let line;
+    let line2;
+
+    if (this.rules.accent.accentCount === 2) {
+      if (this.rules.accent.accentType === 'line') {
+        line = draw.line(0, 0, 15, 0).stroke({
+          width: 1,
+        });
+        line2 = draw.line(0, 0, 15, 0).stroke({
+          width: 1,
+        });
+      }
+    }
+
+    switch (this.rules.accent.accentPlacement) {
+      case 'linesBothSidesOfTagline': {
+        const lineY = taglineProps.y + (taglineProps.h / 2);
+        const lineX = taglineProps.x - 23;
+        line.attr({
+          transform: `translate(${lineX}, ${lineY})`,
+        });
+        const line2Y = taglineProps.y + (taglineProps.h / 2);
+        const line2X = taglineProps.x + (taglineProps.w - 15) + 23;
+        line2.attr({
+          transform: `translate(${line2X}, ${line2Y})`,
+        });
+        break;
+      }
+      case 'lineBetweenNameAndTagline': {
+        line = draw.line(0, 0, 173, 0).stroke({
+          width: 1,
+        });
+        const lineY = taglineProps.y - (taglineProps.h / 2) + 6;
+        const lineX = 150 - (173 / 2);
+        line.attr({
+          transform: `translate(${lineX}, ${lineY})`,
+        });
+        break;
+      }
+      default: {
+        const lineY = taglineProps.y + (taglineProps.h / 2);
+        const lineX = taglineProps.x - 23;
+        line.attr({
+          transform: `translate(${lineX}, ${lineY})`,
+        });
+        const line2Y = taglineProps.y + (taglineProps.h / 2);
+        const line2X = taglineProps.x + (taglineProps.w - 15) + 23;
+        line2.attr({
+          transform: `translate(${line2X}, ${line2Y})`,
+        });
+        break;
+      }
+    }
   }
 }
 
