@@ -33,23 +33,21 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
   const logos = [];
 
   let count = 0; // TODO refactor this.
-  fonts.getFonts().forEach(() => {
-    count += 1;
-
-    if (rules[count] === undefined) { // TODO refactor this.
-      count = 0;
-    }
     palettes.forEach((palette) => {
-        characteristics.push([information.name, information.tagline,
-          rules[count], palette[0], palette[1], []]);
+      if (rules[count] === undefined) { // TODO refactor this.
+        count = 0;
+      }
+      characteristics.push([information.name, information.tagline,
+        rules[count], palette[0], palette[1], []]);
+      count += 1;
     });
-  });
 
   for (let i = 0; i < characteristics.length; i++) {
     logos.push(new Logo(characteristics[i][0], characteristics[i][1],
       characteristics[i][2], characteristics[i][3],
       characteristics[i][4], characteristics[i][5], []).generate());
   }
+
 
   res.set({
     'Content-Type': 'image/svg+xml',
@@ -58,13 +56,13 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
 
   const returnedLogos = [];
 
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < logos.length; i++) {
     returnedLogos.push(logos[i]);
   }
 
   return res.send({
     statusCode: 200,
-    concepts: returnedLogos,
+    concepts: logos,
   });
 });
 
@@ -78,23 +76,21 @@ app.post('/api/logos/concepts', (req, res) => {
   const logos = [];
 
   let count = 0; // TODO refactor this.
-  fonts.getFonts().forEach(() => {
-    count += 1;
-
+  palettes.forEach((palette) => {
     if (rules[count] === undefined) { // TODO refactor this.
       count = 0;
     }
-    palettes.forEach((palette) => {
-      characteristics.push([information.name, information.tagline,
-        rules[count], palette[0], palette[1], []]);
-    });
+    characteristics.push([information.name, information.tagline,
+      rules[count], palette[0], palette[1], []]);
+    count += 1;
   });
 
   for (let i = 0; i < characteristics.length; i++) {
     logos.push(new Logo(characteristics[i][0], characteristics[i][1],
       characteristics[i][2], characteristics[i][3],
-      characteristics[i][4], characteristics[i][5], []));
+      characteristics[i][4], characteristics[i][5], []).generate());
   }
+
 
   res.set({
     'Content-Type': 'image/svg+xml',
@@ -107,15 +103,15 @@ app.post('/api/logos/concepts', (req, res) => {
   //   [logos[i - 1], logos[j]] = [logos[j], logos[i - 1]];
   // }
 
-  const returnedLogos = [];
-
-  for (let i = 0; i < 6; i++) {
-    returnedLogos.push(logos[i].generate());
-  }
+  // const returnedLogos = [];
+  //
+  // for (let i = 0; i < 6; i++) {
+  //   returnedLogos.push(logos[i].generate());
+  // }
 
   return res.send({
     statusCode: 200,
-    concepts: returnedLogos,
+    concepts: logos,
   });
 });
 

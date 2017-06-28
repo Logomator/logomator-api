@@ -46,6 +46,8 @@ class Logo {
     const draw = new SVG(document.documentElement).size(300, 230).attr('id', 'logo');
     draw.viewbox(0, 0, 297, 210);
 
+    draw.clear();
+
     if (!this.rules.tagline) {
       return this.drawCompanyName(draw);
     }
@@ -280,6 +282,7 @@ class Logo {
       case 'left': {
         line = draw.line(0, 0, 97, 0).stroke({
           width: 5,
+          color: this.companyNameColor,
         });
         const lineY = taglineProps.y + (taglineProps.h / 2);
         const lineX = taglineProps.x - 100;
