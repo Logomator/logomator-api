@@ -24,6 +24,7 @@
     "svg.js": "^2.6.1",
     "svg2png": "^4.1.1",
     "svgdom": "0.0.10",
+    "svgjs": "^2.6.2",
     "the-noun-project": "^2.0.1"
   },
   "devDependencies": {
