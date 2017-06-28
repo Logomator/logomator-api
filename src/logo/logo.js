@@ -288,6 +288,21 @@ class Logo {
         });
         break;
       }
+      case 'circlesBothSidesOfTagline': {
+        circle = draw.circle(3);
+        circle2 = draw.circle(3);
+        const circleY = taglineProps.y + (taglineProps.h / 2);
+        const circleX = taglineProps.x - 11;
+        circle.attr({
+          transform: `translate(${circleX}, ${circleY})`,
+        });
+        const circle2Y = taglineProps.y + (taglineProps.h / 2);
+        const circle2X = taglineProps.x + (taglineProps.w - 3) + 11;
+        circle2.attr({
+          transform: `translate(${circle2X}, ${circle2Y})`,
+        });
+        break;
+      }
       default: {
         const lineY = taglineProps.y + (taglineProps.h / 2);
         const lineX = taglineProps.x - 23;
