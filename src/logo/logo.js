@@ -198,11 +198,11 @@ class Logo {
       }
 
       case 'right': {
-        const taglineX = 150;
+        const taglineX = this.companyNameElement.bbox().w - this.taglineElement.bbox().w + this.companyNameElement.bbox().x;
         const taglineY = this.companyNameY + (this.taglineElement.bbox().h);
 
         this.taglineElement.attr({
-          x: taglineX,
+          x: taglineX - 3,
           y: taglineY,
         });
         break;
@@ -237,6 +237,7 @@ class Logo {
   }
 
   drawAccent(draw) {
+    const nameProps = this.companyNameElement.bbox();
     const taglineProps = this.taglineElement.bbox();
     let circle;
     let circle2;
@@ -245,47 +246,79 @@ class Logo {
 
     if (this.rules.accent.accentCount === 2) {
       if (this.rules.accent.accentType === 'line') {
-        line = draw.line(0, 0, 15, 0).stroke({
-          width: 1,
-        });
-        line2 = draw.line(0, 0, 15, 0).stroke({
-          width: 1,
-        });
+
       }
     }
 
     switch (this.rules.accent.accentPlacement) {
       case 'linesBothSidesOfTagline': {
-        const lineY = taglineProps.y + (taglineProps.h / 2);
-        const lineX = taglineProps.x - 23;
-        line.attr({
-          transform: `translate(${lineX}, ${lineY})`,
-        });
-        const line2Y = taglineProps.y + (taglineProps.h / 2);
-        const line2X = taglineProps.x + (taglineProps.w - 15) + 23;
-        line2.attr({
-          transform: `translate(${line2X}, ${line2Y})`,
-        });
+        if (this.rules.accent.accentWidth > 15) {
+          const spacing = 20;
+          const taglineWidthWithSpacing = taglineProps.w + spacing;
+          const companyNameWidthDifference = this.companyNameElement.bbox().w - taglineWidthWithSpacing;
+          const lineWidth = companyNameWidthDifference / 2;
+
+          line = draw.line(0, 0, lineWidth, 0).stroke({
+            width: 1,
+          });
+          line2 = draw.line(0, 0, lineWidth, 0).stroke({
+            width: 1,
+          });
+          const lineY = taglineProps.y + (taglineProps.h / 2);
+          const lineX = taglineProps.x - lineWidth - 8;
+          line.attr({
+            transform: `translate(${lineX}, ${lineY})`,
+          });
+          const line2Y = taglineProps.y + (taglineProps.h / 2);
+          const line2X = taglineProps.x +
+            (taglineProps.w - lineWidth) + lineWidth + 8;
+          line2.attr({
+            transform: `translate(${line2X}, ${line2Y})`,
+          });
+        } else {
+          line = draw.line(0, 0, this.rules.accent.accentWidth, 0).stroke({
+            width: 1,
+          });
+          line2 = draw.line(0, 0, this.rules.accent.accentWidth, 0).stroke({
+            width: 1,
+          });
+          const lineY = taglineProps.y + (taglineProps.h / 2);
+          const lineX = taglineProps.x - this.rules.accent.accentWidth - 8;
+          line.attr({
+            transform: `translate(${lineX}, ${lineY})`,
+          });
+          const line2Y = taglineProps.y + (taglineProps.h / 2);
+          const line2X = taglineProps.x +
+            (taglineProps.w - this.rules.accent.accentWidth) + this.rules.accent.accentWidth + 8;
+          line2.attr({
+            transform: `translate(${line2X}, ${line2Y})`,
+          });
+        }
         break;
       }
       case 'lineBetweenNameAndTagline': {
-        line = draw.line(0, 0, 173, 0).stroke({
+        line = draw.line(0, 0, this.companyNameElement.bbox().w, 0).stroke({
           width: 1,
         });
         const lineY = taglineProps.y - (taglineProps.h / 2) + 6;
-        const lineX = 150 - (173 / 2);
+        const lineX = 150 - (this.companyNameElement.bbox().w / 2);
         line.attr({
           transform: `translate(${lineX}, ${lineY})`,
         });
         break;
       }
       case 'left': {
-        line = draw.line(0, 0, 97, 0).stroke({
+        const spacing = 10;
+        const taglineWidthWithSpacing = this.taglineElement.bbox().w + spacing;
+        const companyNameWidthDifference = this.companyNameElement.bbox().w - taglineWidthWithSpacing;
+
+
+        line = draw.line(0, 0, companyNameWidthDifference, 0).stroke({
           width: 5,
           color: this.companyNameColor,
         });
         const lineY = taglineProps.y + (taglineProps.h / 2);
-        const lineX = taglineProps.x - 100;
+        const lineX = taglineProps.x - companyNameWidthDifference - spacing + 3;
         line.attr({
           transform: `translate(${lineX}, ${lineY})`,
         });
