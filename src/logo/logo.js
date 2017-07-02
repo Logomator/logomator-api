@@ -13,6 +13,7 @@ class Logo {
     this.rules = rules;
     this.companyNameElement = null;
     this.taglineElement = null;
+    this.groupElement = null;
     this.companyNameY = null;
   }
 
@@ -25,19 +26,19 @@ class Logo {
      */
     this.preloadFonts();
 
-    const group = draw.group();
+    this.groupElement = draw.group();
 
     if (!this.rules.tagline) {
-      return this.drawCompanyName(draw, group);
+      return this.drawCompanyName(draw, this.groupElement);
     }
 
-    this.drawCompanyName(draw, group);
+    this.drawCompanyName(draw, this.groupElement);
 
     /**
      * Check if recipe has tagline.
      */
     if (this.rules.tagline) {
-      this.drawTagline(draw, group);
+      this.drawTagline(draw, this.groupElement);
     }
 
     /**
@@ -54,26 +55,17 @@ class Logo {
     return svg;
   }
 
-  drawCompanyName(draw, group) {
+  drawCompanyName(draw) {
     /**
      * Check company name casing
      */
-    switch (this.rules.name.casing) {
-      case 'lowercase':
-        this.companyName = this.companyName.toLowerCase();
-        break;
-      case 'uppercase':
-        this.companyName = this.companyName.toUpperCase();
-        break;
-      case 'pascalCase':
-        this.companyName = this.companyName.replace(/\w+/g, w => w[0].toUpperCase() +
-        w.slice(1).toLowerCase());
-        break;
-      default:
-        break;
-    }
+    this.companyName = this.setTextCasing(this.companyName, this.rules.name.casing);
 
-    this.companyNameElement = draw.text('').tspan(this.companyName);
+    this.companyNameElement = draw.text((add) => {
+      add.tspan(this.companyName);
+    });
+
+    this.groupElement.add(this.companyNameElement);
 
     /**
      * Company name font rules.
@@ -115,25 +107,25 @@ class Logo {
     });
   }
 
-  drawTagline(draw, group) {
+  drawTagline(draw) {
     /**
      * Tagline casing rules.
      */
-    switch (this.rules.tagline.casing) {
-      case 'lowercase':
-        this.tagline = this.tagline.toLowerCase();
-        break;
-      case 'uppercase':
-        this.tagline = this.tagline.toUpperCase();
-        break;
-      case 'pascalcase':
-        this.tagline = this.tagline.replace(/\w+/g, w => w[0].toUpperCase() +
-        w.slice(1).toLowerCase());
-        break;
-      default:
-        break;
+    this.tagline = this.setTextCasing(this.tagline, this.rules.tagline.casing);
+
+    if (this.rules.tagline.taglineWidth) {
+      this.taglineElement = draw.text((add) => {
+        add.tspan(this.tagline).attr({
+          textLength: this.companyNameElement.bbox().w,
+        })
+      });
+    } else {
+      this.taglineElement = draw.text((add) => {
+        add.tspan(this.tagline);
+      });
     }
-    this.taglineElement = draw.text('').tspan(this.tagline);
+
+    this.groupElement.add(this.taglineElement);
 
     /**
      * Tagline font rules.
@@ -185,7 +177,10 @@ class Logo {
       }
 
       case 'right': {
-        const taglineX = this.companyNameElement.bbox().w - this.taglineElement.bbox().w + this.companyNameElement.bbox().x;
+        const taglineX = this.companyNameElement.bbox().w -
+          this.taglineElement.bbox().w +
+          this.companyNameElement.bbox().x;
+
         const taglineY = this.companyNameY + (this.taglineElement.bbox().h);
 
         this.taglineElement.attr({
@@ -218,20 +213,26 @@ class Logo {
         break;
       }
     }
+
+    /**
+     * Center groupElement
+    //  */
+    // const group = this.groupElement.bbox();
+    // const groupY = group.y - group.h / 2;
+    //
+    // console.log('Group BBOX', this.groupElement.bbox());
+    //
+    // this.groupElement.attr({
+    //   transform: `translate(0, ${groupY})`,
+    // });
   }
 
-  drawAccent(draw, group) {
+  drawAccent(draw) {
     const taglineProps = this.taglineElement.bbox();
     let circle;
     let circle2;
     let line;
     let line2;
-
-    if (this.rules.accent.accentCount === 2) {
-      if (this.rules.accent.accentType === 'line') {
-
-      }
-    }
 
     switch (this.rules.accent.accentPlacement) {
       case 'linesBothSidesOfTagline': {
@@ -336,6 +337,24 @@ class Logo {
         break;
       }
     }
+  }
+
+  setTextCasing(text, casing) {
+    switch (casing) {
+      case 'lowercase':
+        text.toLowerCase();
+        break;
+      case 'uppercase':
+        text.toUpperCase();
+        break;
+      case 'pascalcase':
+        text.replace(/\w+/g, w => w[0].toUpperCase() +
+        w.slice(1).toLowerCase());
+        break;
+      default:
+        break;
+    }
+    return text;
   }
   preloadFonts() {
     window.setFontDir(`${__dirname}/../../fonts`)
