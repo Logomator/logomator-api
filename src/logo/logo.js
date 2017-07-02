@@ -73,8 +73,7 @@ class Logo {
         break;
     }
 
-    this.companyNameElement = draw.text(this.companyName);
-    group.add(this.companyNameElement);
+    this.companyNameElement = draw.text('').tspan(this.companyName);
 
     /**
      * Company name font rules.
