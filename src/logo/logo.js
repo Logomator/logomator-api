@@ -3,32 +3,6 @@ const SVG = require('svg.js')(window);
 
 const document = window.document;
 
-window.setFontDir(`${__dirname}/../../fonts`)
-  .setFontFamilyMappings({
-    'Montserrat': 'Montserrat-Regular.otf',
-    'Boogalo': 'Boogaloo-Regular.otf',
-    'Montserrat Semibold': 'Montserrat-SemiBold.otf',
-    'Montserrat Bold': 'Montserrat-Bold.otf',
-    'Abril Fat Face': 'AbrilFatface-Regular.otf',
-    'Alex Brush': 'AlexBrush-Regular.ttf',
-    'Bebas Neue': 'BebasNeue.otf',
-    'Caviar Dreams': 'CaviarDreams.ttf',
-    'Caviar Dreams Bold': 'Caviar_Dreams_Bold.ttf',
-    'Chunk Five': 'Chunkfive.otf',
-    'Cinzel': 'Cinzel-Regular.otf',
-    'Cinzel Bold': 'Cinzel-Bold.otf',
-    'Dancing Script': 'DancingScript-Regular.otf',
-    'Great Vibes': 'GreatVibes-Regular.otf',
-    'Happy Monkey': 'HappyMonkey-Regular.ttf',
-    'Lato': 'Lato-Regular.ttf',
-    'Lato Semi Bold': 'Lato-Semibold.ttf',
-    'Lato Bold': 'Lato-Bold.ttf',
-    'Lato Medium': 'Lato-Medium.ttf',
-    'Oswald': 'Oswald-Regular.ttf',
-    'Pacifico': 'Pacifico.ttf',
-
-  }).preloadFonts();
-
 class Logo {
   constructor(companyName, tagline, rules, companyNameColor, taglineColor, icons) {
     this.companyName = companyName || 'Dopest';
@@ -46,23 +20,28 @@ class Logo {
     const draw = new SVG(document.documentElement).size(300, 230).attr('id', 'logo');
     draw.viewbox(0, 0, 297, 210);
 
-    draw.clear();
+    /**
+     * Preload fonts.
+     */
+    this.preloadFonts();
+
+    const group = draw.group();
 
     if (!this.rules.tagline) {
-      return this.drawCompanyName(draw);
+      return this.drawCompanyName(draw, group);
     }
 
-    this.drawCompanyName(draw);
+    this.drawCompanyName(draw, group);
 
     /**
      * Check if recipe has tagline.
      */
     if (this.rules.tagline) {
-      this.drawTagline(draw);
+      this.drawTagline(draw, group);
     }
 
     /**
-     * Check if recipe has accent
+     * Check if recipe has accent.
      */
     if (this.rules.accent) {
       this.drawAccent(draw);
@@ -70,13 +49,12 @@ class Logo {
 
     const svg = draw.svg();
 
-    // Clear SVG properties
     draw.clear();
 
     return svg;
   }
 
-  drawCompanyName(draw) {
+  drawCompanyName(draw, group) {
     /**
      * Check company name casing
      */
@@ -95,7 +73,8 @@ class Logo {
         break;
     }
 
-    this.companyNameElement = draw.text('').tspan(this.companyName);
+    this.companyNameElement = draw.text(this.companyName);
+    group.add(this.companyNameElement);
 
     /**
      * Company name font rules.
@@ -122,9 +101,7 @@ class Logo {
         'text-anchor': 'middle',
         'alignment-baseline': 'middle',
       });
-      const svg = draw.svg();
-      draw.clear();
-      return svg;
+      return draw.svg();
     }
 
     const nameProps = this.companyNameElement.bbox();
@@ -139,7 +116,7 @@ class Logo {
     });
   }
 
-  drawTagline(draw) {
+  drawTagline(draw, group) {
     /**
      * Tagline casing rules.
      */
@@ -176,7 +153,18 @@ class Logo {
        * Tagline positioning rules.
        */
       case 'middle': {
-        const taglineX = 150 - this.taglineElement.bbox().w / 2;
+        let taglineX;
+
+        if (this.rules.tagline.taglineWidth === 'companyNameWidth') {
+          taglineX = '50%';
+          this.taglineElement.attr({
+            textLength: this.companyNameElement.bbox().w,
+            'text-anchor': 'middle',
+            'alignment-baseline': 'middle',
+          });
+        } else {
+          taglineX = 150 - (this.taglineElement.bbox().w / 2);
+        }
         const taglineY = this.companyNameY + (this.taglineElement.bbox().h);
 
         this.taglineElement.attr({
@@ -231,13 +219,9 @@ class Logo {
         break;
       }
     }
-
-    // const width = namePosition.w + 2;
-    // tagline.attr('textLength', width);
   }
 
-  drawAccent(draw) {
-    const nameProps = this.companyNameElement.bbox();
+  drawAccent(draw, group) {
     const taglineProps = this.taglineElement.bbox();
     let circle;
     let circle2;
@@ -353,6 +337,33 @@ class Logo {
         break;
       }
     }
+  }
+  preloadFonts() {
+    window.setFontDir(`${__dirname}/../../fonts`)
+      .setFontFamilyMappings({
+        'Montserrat': 'Montserrat-Regular.otf',
+        'Boogalo': 'Boogaloo-Regular.otf',
+        'Montserrat Semibold': 'Montserrat-SemiBold.otf',
+        'Montserrat Bold': 'Montserrat-Bold.otf',
+        'Abril Fat Face': 'AbrilFatface-Regular.otf',
+        'Alex Brush': 'AlexBrush-Regular.ttf',
+        'Bebas Neue': 'BebasNeue.otf',
+        'Caviar Dreams': 'CaviarDreams.ttf',
+        'Caviar Dreams Bold': 'Caviar_Dreams_Bold.ttf',
+        'Chunk Five': 'Chunkfive.otf',
+        'Cinzel': 'Cinzel-Regular.otf',
+        'Cinzel Bold': 'Cinzel-Bold.otf',
+        'Dancing Script': 'DancingScript-Regular.otf',
+        'Great Vibes': 'GreatVibes-Regular.otf',
+        'Happy Monkey': 'HappyMonkey-Regular.ttf',
+        'Lato': 'Lato-Regular.ttf',
+        'Lato Semi Bold': 'Lato-Semibold.ttf',
+        'Lato Bold': 'Lato-Bold.ttf',
+        'Lato Medium': 'Lato-Medium.ttf',
+        'Oswald': 'Oswald-Regular.ttf',
+        'Pacifico': 'Pacifico.ttf',
+
+      }).preloadFonts();
   }
 }
 
