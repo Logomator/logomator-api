@@ -48,15 +48,17 @@ class Logo {
       this.drawAccent(draw);
     }
 
-    /**
-     * Center group element
-     * @type {number}
-     */
-    const groupY = this.groupElement.bbox().h / 6;
+    if (this.rules.tagline) {
+      /**
+       * Center group element
+       * @type {number}
+       */
+      const groupY = 115 - (this.groupElement.bbox().h / 2);
 
-    this.groupElement.attr({
-      transform: `translate(0, ${groupY})`,
-    });
+      this.groupElement.attr({
+        transform: `translate(0, ${groupY})`,
+      });
+    }
 
     const svg = draw.svg();
 
@@ -113,7 +115,7 @@ class Logo {
 
     this.companyNameElement.attr({
       x: nameX,
-      y: nameY,
+      y: nameProps.h / 2,
     });
   }
 
@@ -166,7 +168,7 @@ class Logo {
         } else {
           taglineX = 150 - (this.taglineElement.bbox().w / 2);
         }
-        const taglineY = this.companyNameY + (this.taglineElement.bbox().h);
+        const taglineY = this.companyNameElement.bbox().y + this.companyNameElement.bbox().h + 10;
 
         this.taglineElement.attr({
           x: taglineX,
@@ -177,7 +179,7 @@ class Logo {
 
       case 'left': {
         const taglineX = this.companyNameElement.bbox().x;
-        const taglineY = this.companyNameY + (this.taglineElement.bbox().h);
+        const taglineY = this.companyNameElement.bbox().y + this.companyNameElement.bbox().h + 10;
 
         this.taglineElement.attr({
           x: taglineX,
@@ -188,10 +190,9 @@ class Logo {
 
       case 'right': {
         const taglineX = this.companyNameElement.bbox().w -
-          this.taglineElement.bbox().w +
-          this.companyNameElement.bbox().x;
+          (this.taglineElement.bbox().w + this.companyNameElement.bbox().x);
 
-        const taglineY = this.companyNameY + (this.taglineElement.bbox().h);
+        const taglineY = this.companyNameElement.bbox().y + this.companyNameElement.bbox().h + 10;
 
         this.taglineElement.attr({
           x: taglineX - 3,
@@ -203,7 +204,7 @@ class Logo {
       case 'belowAccent': {
         const taglineProps = this.taglineElement.bbox();
         const taglineX = 150 - (taglineProps.w / 2);
-        const taglineY = this.companyNameY + (taglineProps.h + 10);
+        const taglineY = this.companyNameElement.bbox().y + this.companyNameElement.bbox().h + 20;
 
         this.taglineElement.attr({
           x: taglineX,
