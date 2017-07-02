@@ -6,7 +6,7 @@
       "fontFamily": "Pacifico",
       "fontType": "script",
       "casing": "pascalcase",
-      "fontSize": 28,
+      "fontSize": 30,
       "letterSpacing": 0
     }
   },
@@ -17,14 +17,14 @@
       "fontFamily": "Pacifico",
       "fontType": "script",
       "casing": "pascalcase",
-      "fontSize": 28,
+      "fontSize": 30,
       "letterSpacing": 0
     },
     "tagline": {
       "fontFamily": "Lato",
       "fontType": "sansSerif",
       "casing": "pascalcase",
-      "fontSize": 18,
+      "fontSize": 16,
       "letterSpacing": 0,
       "taglinePlacement": "right"
     }
@@ -36,7 +36,7 @@
       "fontFamily": "Happy Monkey",
       "fontType": "display",
       "casing": "pascalcase",
-      "fontSize": 28,
+      "fontSize": 30,
       "letterSpacing": 0
     }
   },
@@ -47,14 +47,14 @@
       "fontFamily": "Happy Monkey",
       "fontType": "display",
       "casing": "pascalcase",
-      "fontSize": 28,
+      "fontSize": 30,
       "letterSpacing": 0
     },
     "tagline": {
       "fontFamily": "Lato",
       "fontType": "sansSerif",
       "casing": "pascalcase",
-      "fontSize": 18,
+      "fontSize": 16,
       "letterSpacing": 0,
       "taglinePlacement": "left"
     }
@@ -84,9 +84,10 @@
       "fontFamily": "Montserrat",
       "fontType": "sansSerif",
       "casing": "uppercase",
-      "fontSize": 18,
+      "fontSize": 12,
       "letterSpacing": 0,
-      "taglinePlacement": "middle"
+      "taglinePlacement": "middle",
+      "taglineWidth": "companyNameWidth"
     }
   },
   {
@@ -96,7 +97,7 @@
       "fontFamily": "Great Vibes",
       "fontType": "script",
       "casing": "pascalcase",
-      "fontSize": 28,
+      "fontSize": 36,
       "letterSpacing": 0
     }
   },
@@ -107,14 +108,14 @@
       "fontFamily": "Great Vibes",
       "fontType": "script",
       "casing": "pascalcase",
-      "fontSize": 28,
+      "fontSize": 36,
       "letterSpacing": 0
     },
     "tagline": {
       "fontFamily": "Lato",
       "fontType": "sansSerif",
       "casing": "uppercase",
-      "fontSize": 18,
+      "fontSize": 12,
       "letterSpacing": 0,
       "taglinePlacement": "middle"
     },
@@ -151,7 +152,7 @@
       "fontFamily": "Lato",
       "fontType": "sansSerif",
       "casing": "uppercase",
-      "fontSize": 18,
+      "fontSize": 12,
       "letterSpacing": 0,
       "taglinePlacement": "middle"
     },
@@ -170,7 +171,7 @@
       "fontFamily": "Bebas Neue",
       "fontType": "sansSerif",
       "casing": "uppercase",
-      "fontSize": 28,
+      "fontSize": 38,
       "letterSpacing": 0
     }
   },
@@ -181,14 +182,14 @@
       "fontFamily": "Bebas Neue",
       "fontType": "sansSerif",
       "casing": "uppercase",
-      "fontSize": 28,
+      "fontSize": 38,
       "letterSpacing": 0
     },
     "tagline": {
       "fontFamily": "Lato",
       "fontType": "sansSerif",
       "casing": "uppercase",
-      "fontSize": 18,
+      "fontSize": 12,
       "letterSpacing": 0,
       "taglinePlacement": "middle"
     },
@@ -207,7 +208,7 @@
       "fontFamily": "Cinzel",
       "fontType": "serif",
       "casing": "pascalcase",
-      "fontSize": 28,
+      "fontSize": 30,
       "letterSpacing": 0
     }
   },
@@ -225,7 +226,7 @@
       "fontFamily": "Cinzel",
       "fontType": "serif",
       "casing": "pascalcase",
-      "fontSize": 18,
+      "fontSize": 16,
       "letterSpacing": 0,
       "taglinePlacement": "belowAccent"
     },
@@ -262,7 +263,7 @@
       "fontFamily": "Lato",
       "fontType": "sansSerif",
       "casing": "uppercase",
-      "fontSize": 18,
+      "fontSize": 12,
       "letterSpacing": 0,
       "taglinePlacement": "right"
     },
@@ -281,14 +282,14 @@
       "fontFamily": "Dancing Script",
       "fontType": "script",
       "casing": "pascalcase",
-      "fontSize": 28,
+      "fontSize": 34,
       "letterSpacing": 0
     },
     "tagline": {
       "fontFamily": "Lato Bold",
       "fontType": "sansSerif",
       "casing": "uppercase",
-      "fontSize": 18,
+      "fontSize": 14,
       "letterSpacing": 0
     }
   },
@@ -299,7 +300,7 @@
       "fontFamily": "Boogaloo",
       "fontType": "display",
       "casing": "uppercase",
-      "fontSize": 28,
+      "fontSize": 32,
       "letterSpacing": 0
     }
   },
@@ -317,7 +318,7 @@
       "fontFamily": "Boogaloo",
       "fontType": "display",
       "casing": "uppercase",
-      "fontSize": 18,
+      "fontSize": 16,
       "letterSpacing": 0
     }
   },
@@ -328,7 +329,7 @@
       "fontFamily": "Alex Brush",
       "fontType": "script",
       "casing": "pascalcase",
-      "fontSize": 28,
+      "fontSize": 34,
       "letterSpacing": 0
     }
   },
@@ -339,14 +340,14 @@
       "fontFamily": "Alex Brush",
       "fontType": "script",
       "casing": "pascalcase",
-      "fontSize": 28,
+      "fontSize": 34,
       "letterSpacing": 0
     },
     "tagline": {
       "fontFamily": "Lato",
       "fontType": "sansSerif",
       "casing": "uppercase",
-      "fontSize": 18,
+      "fontSize": 14,
       "letterSpacing": 0
     }
   },
@@ -357,7 +358,7 @@
       "fontFamily": "Oswald",
       "fontType": "display",
       "casing": "uppercase",
-      "fontSize": 28,
+      "fontSize": 30,
       "letterSpacing": 0
     }
   },
@@ -368,14 +369,14 @@
       "fontFamily": "Oswald",
       "fontType": "display",
       "casing": "uppercase",
-      "fontSize": 28,
+      "fontSize": 30,
       "letterSpacing": 0
     },
     "tagline": {
       "fontFamily": "Lato",
       "fontType": "sansSerif",
       "casing": "uppercase",
-      "fontSize": 18,
+      "fontSize": 14,
       "letterSpacing": 0
     }
   }
