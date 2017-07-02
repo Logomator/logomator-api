@@ -48,6 +48,16 @@ class Logo {
       this.drawAccent(draw);
     }
 
+    /**
+     * Center group element
+     * @type {number}
+     */
+    const groupY = this.groupElement.bbox().h / 6;
+
+    this.groupElement.attr({
+      transform: `translate(0, ${groupY})`,
+    });
+
     const svg = draw.svg();
 
     draw.clear();
@@ -213,18 +223,6 @@ class Logo {
         break;
       }
     }
-
-    /**
-     * Center groupElement
-    //  */
-    // const group = this.groupElement.bbox();
-    // const groupY = group.y - group.h / 2;
-    //
-    // console.log('Group BBOX', this.groupElement.bbox());
-    //
-    // this.groupElement.attr({
-    //   transform: `translate(0, ${groupY})`,
-    // });
   }
 
   drawAccent(draw) {
@@ -278,6 +276,8 @@ class Logo {
             transform: `translate(${line2X}, ${line2Y})`,
           });
         }
+        this.groupElement.add(line);
+        this.groupElement.add(line2);
         break;
       }
       case 'lineBetweenNameAndTagline': {
@@ -289,6 +289,7 @@ class Logo {
         line.attr({
           transform: `translate(${lineX}, ${lineY})`,
         });
+        this.groupElement.add(line);
         break;
       }
       case 'left': {
@@ -306,6 +307,7 @@ class Logo {
         line.attr({
           transform: `translate(${lineX}, ${lineY})`,
         });
+        this.groupElement.add(line);
         break;
       }
       case 'circlesBothSidesOfTagline': {
@@ -321,6 +323,8 @@ class Logo {
         circle2.attr({
           transform: `translate(${circle2X}, ${circle2Y})`,
         });
+        this.groupElement.add(circle);
+        this.groupElement.add(circle2);
         break;
       }
       default: {
@@ -334,6 +338,8 @@ class Logo {
         line2.attr({
           transform: `translate(${line2X}, ${line2Y})`,
         });
+        this.groupElement.add(line);
+        this.groupElement.add(line2);
         break;
       }
     }
