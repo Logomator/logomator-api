@@ -3,32 +3,6 @@ const SVG = require('svg.js')(window);
 
 const document = window.document;
 
-window.setFontDir(`${__dirname}/../../fonts`)
-  .setFontFamilyMappings({
-    'Montserrat': 'Montserrat-Regular.otf',
-    'Boogalo': 'Boogaloo-Regular.otf',
-    'Montserrat Semibold': 'Montserrat-SemiBold.otf',
-    'Montserrat Bold': 'Montserrat-Bold.otf',
-    'Abril Fat Face': 'AbrilFatface-Regular.otf',
-    'Alex Brush': 'AlexBrush-Regular.ttf',
-    'Bebas Neue': 'BebasNeue.otf',
-    'Caviar Dreams': 'CaviarDreams.ttf',
-    'Caviar Dreams Bold': 'Caviar_Dreams_Bold.ttf',
-    'Chunk Five': 'Chunkfive.otf',
-    'Cinzel': 'Cinzel-Regular.otf',
-    'Cinzel Bold': 'Cinzel-Bold.otf',
-    'Dancing Script': 'DancingScript-Regular.otf',
-    'Great Vibes': 'GreatVibes-Regular.otf',
-    'Happy Monkey': 'HappyMonkey-Regular.ttf',
-    'Lato': 'Lato-Regular.ttf',
-    'Lato Semi Bold': 'Lato-Semibold.ttf',
-    'Lato Bold': 'Lato-Bold.ttf',
-    'Lato Medium': 'Lato-Medium.ttf',
-    'Oswald': 'Oswald-Regular.ttf',
-    'Pacifico': 'Pacifico.ttf',
-
-  }).preloadFonts();
-
 class Logo {
   constructor(companyName, tagline, rules, companyNameColor, taglineColor, icons) {
     this.companyName = companyName || 'Dopest';
@@ -39,6 +13,7 @@ class Logo {
     this.rules = rules;
     this.companyNameElement = null;
     this.taglineElement = null;
+    this.groupElement = null;
     this.companyNameY = null;
   }
 
@@ -46,31 +21,47 @@ class Logo {
     const draw = new SVG(document.documentElement).size(300, 230).attr('id', 'logo');
     draw.viewbox(0, 0, 297, 210);
 
-    draw.clear();
+    /**
+     * Preload fonts.
+     */
+    this.preloadFonts();
+
+    this.groupElement = draw.group();
 
     if (!this.rules.tagline) {
-      return this.drawCompanyName(draw);
+      return this.drawCompanyName(draw, this.groupElement);
     }
 
-    this.drawCompanyName(draw);
+    this.drawCompanyName(draw, this.groupElement);
 
     /**
      * Check if recipe has tagline.
      */
     if (this.rules.tagline) {
-      this.drawTagline(draw);
+      this.drawTagline(draw, this.groupElement);
     }
 
     /**
-     * Check if recipe has accent
+     * Check if recipe has accent.
      */
     if (this.rules.accent) {
       this.drawAccent(draw);
     }
 
+    if (this.rules.tagline) {
+      /**
+       * Center group element
+       * @type {number}
+       */
+      const groupY = 115 - (this.groupElement.bbox().h / 2);
+
+      this.groupElement.attr({
+        transform: `translate(0, ${groupY})`,
+      });
+    }
+
     const svg = draw.svg();
 
-    // Clear SVG properties
     draw.clear();
 
     return svg;
@@ -80,22 +71,13 @@ class Logo {
     /**
      * Check company name casing
      */
-    switch (this.rules.name.casing) {
-      case 'lowercase':
-        this.companyName = this.companyName.toLowerCase();
-        break;
-      case 'uppercase':
-        this.companyName = this.companyName.toUpperCase();
-        break;
-      case 'pascalCase':
-        this.companyName = this.companyName.replace(/\w+/g, w => w[0].toUpperCase() +
-        w.slice(1).toLowerCase());
-        break;
-      default:
-        break;
-    }
+    this.companyName = this.setTextCasing(this.companyName, this.rules.name.casing);
 
-    this.companyNameElement = draw.text('').tspan(this.companyName);
+    this.companyNameElement = draw.text((add) => {
+      add.tspan(this.companyName);
+    });
+
+    this.groupElement.add(this.companyNameElement);
 
     /**
      * Company name font rules.
@@ -122,9 +104,7 @@ class Logo {
         'text-anchor': 'middle',
         'alignment-baseline': 'middle',
       });
-      const svg = draw.svg();
-      draw.clear();
-      return svg;
+      return draw.svg();
     }
 
     const nameProps = this.companyNameElement.bbox();
@@ -135,7 +115,7 @@ class Logo {
 
     this.companyNameElement.attr({
       x: nameX,
-      y: nameY,
+      y: nameProps.h / 2,
     });
   }
 
@@ -143,21 +123,21 @@ class Logo {
     /**
      * Tagline casing rules.
      */
-    switch (this.rules.tagline.casing) {
-      case 'lowercase':
-        this.tagline = this.tagline.toLowerCase();
-        break;
-      case 'uppercase':
-        this.tagline = this.tagline.toUpperCase();
-        break;
-      case 'pascalcase':
-        this.tagline = this.tagline.replace(/\w+/g, w => w[0].toUpperCase() +
-        w.slice(1).toLowerCase());
-        break;
-      default:
-        break;
+    this.tagline = this.setTextCasing(this.tagline, this.rules.tagline.casing);
+
+    if (this.rules.tagline.taglineWidth) {
+      this.taglineElement = draw.text((add) => {
+        add.tspan(this.tagline).attr({
+          textLength: this.companyNameElement.bbox().w,
+        })
+      });
+    } else {
+      this.taglineElement = draw.text((add) => {
+        add.tspan(this.tagline);
+      });
     }
-    this.taglineElement = draw.text('').tspan(this.tagline);
+
+    this.groupElement.add(this.taglineElement);
 
     /**
      * Tagline font rules.
@@ -176,8 +156,19 @@ class Logo {
        * Tagline positioning rules.
        */
       case 'middle': {
-        const taglineX = 150 - this.taglineElement.bbox().w / 2;
-        const taglineY = this.companyNameY + (this.taglineElement.bbox().h);
+        let taglineX;
+
+        if (this.rules.tagline.taglineWidth === 'companyNameWidth') {
+          taglineX = '50%';
+          this.taglineElement.attr({
+            textLength: this.companyNameElement.bbox().w,
+            'text-anchor': 'middle',
+            'alignment-baseline': 'middle',
+          });
+        } else {
+          taglineX = 150 - (this.taglineElement.bbox().w / 2);
+        }
+        const taglineY = this.companyNameElement.bbox().y + this.companyNameElement.bbox().h + 10;
 
         this.taglineElement.attr({
           x: taglineX,
@@ -188,7 +179,7 @@ class Logo {
 
       case 'left': {
         const taglineX = this.companyNameElement.bbox().x;
-        const taglineY = this.companyNameY + (this.taglineElement.bbox().h);
+        const taglineY = this.companyNameElement.bbox().y + this.companyNameElement.bbox().h + 10;
 
         this.taglineElement.attr({
           x: taglineX,
@@ -198,8 +189,10 @@ class Logo {
       }
 
       case 'right': {
-        const taglineX = this.companyNameElement.bbox().w - this.taglineElement.bbox().w + this.companyNameElement.bbox().x;
-        const taglineY = this.companyNameY + (this.taglineElement.bbox().h);
+        const taglineX = this.companyNameElement.bbox().w -
+          (this.taglineElement.bbox().w + this.companyNameElement.bbox().x);
+
+        const taglineY = this.companyNameElement.bbox().y + this.companyNameElement.bbox().h + 10;
 
         this.taglineElement.attr({
           x: taglineX - 3,
@@ -211,7 +204,7 @@ class Logo {
       case 'belowAccent': {
         const taglineProps = this.taglineElement.bbox();
         const taglineX = 150 - (taglineProps.w / 2);
-        const taglineY = this.companyNameY + (taglineProps.h + 10);
+        const taglineY = this.companyNameElement.bbox().y + this.companyNameElement.bbox().h + 20;
 
         this.taglineElement.attr({
           x: taglineX,
@@ -231,24 +224,14 @@ class Logo {
         break;
       }
     }
-
-    // const width = namePosition.w + 2;
-    // tagline.attr('textLength', width);
   }
 
   drawAccent(draw) {
-    const nameProps = this.companyNameElement.bbox();
     const taglineProps = this.taglineElement.bbox();
     let circle;
     let circle2;
     let line;
     let line2;
-
-    if (this.rules.accent.accentCount === 2) {
-      if (this.rules.accent.accentType === 'line') {
-
-      }
-    }
 
     switch (this.rules.accent.accentPlacement) {
       case 'linesBothSidesOfTagline': {
@@ -294,6 +277,8 @@ class Logo {
             transform: `translate(${line2X}, ${line2Y})`,
           });
         }
+        this.groupElement.add(line);
+        this.groupElement.add(line2);
         break;
       }
       case 'lineBetweenNameAndTagline': {
@@ -305,6 +290,7 @@ class Logo {
         line.attr({
           transform: `translate(${lineX}, ${lineY})`,
         });
+        this.groupElement.add(line);
         break;
       }
       case 'left': {
@@ -322,6 +308,7 @@ class Logo {
         line.attr({
           transform: `translate(${lineX}, ${lineY})`,
         });
+        this.groupElement.add(line);
         break;
       }
       case 'circlesBothSidesOfTagline': {
@@ -337,6 +324,8 @@ class Logo {
         circle2.attr({
           transform: `translate(${circle2X}, ${circle2Y})`,
         });
+        this.groupElement.add(circle);
+        this.groupElement.add(circle2);
         break;
       }
       default: {
@@ -350,9 +339,56 @@ class Logo {
         line2.attr({
           transform: `translate(${line2X}, ${line2Y})`,
         });
+        this.groupElement.add(line);
+        this.groupElement.add(line2);
         break;
       }
     }
+  }
+
+  setTextCasing(text, casing) {
+    switch (casing) {
+      case 'lowercase':
+        text.toLowerCase();
+        break;
+      case 'uppercase':
+        text.toUpperCase();
+        break;
+      case 'pascalcase':
+        text.replace(/\w+/g, w => w[0].toUpperCase() +
+        w.slice(1).toLowerCase());
+        break;
+      default:
+        break;
+    }
+    return text;
+  }
+  preloadFonts() {
+    window.setFontDir(`${__dirname}/../../fonts`)
+      .setFontFamilyMappings({
+        'Montserrat': 'Montserrat-Regular.otf',
+        'Boogalo': 'Boogaloo-Regular.otf',
+        'Montserrat Semibold': 'Montserrat-SemiBold.otf',
+        'Montserrat Bold': 'Montserrat-Bold.otf',
+        'Abril Fat Face': 'AbrilFatface-Regular.otf',
+        'Alex Brush': 'AlexBrush-Regular.ttf',
+        'Bebas Neue': 'BebasNeue.otf',
+        'Caviar Dreams': 'CaviarDreams.ttf',
+        'Caviar Dreams Bold': 'Caviar_Dreams_Bold.ttf',
+        'Chunk Five': 'Chunkfive.otf',
+        'Cinzel': 'Cinzel-Regular.otf',
+        'Cinzel Bold': 'Cinzel-Bold.otf',
+        'Dancing Script': 'DancingScript-Regular.otf',
+        'Great Vibes': 'GreatVibes-Regular.otf',
+        'Happy Monkey': 'HappyMonkey-Regular.ttf',
+        'Lato': 'Lato-Regular.ttf',
+        'Lato Semi Bold': 'Lato-Semibold.ttf',
+        'Lato Bold': 'Lato-Bold.ttf',
+        'Lato Medium': 'Lato-Medium.ttf',
+        'Oswald': 'Oswald-Regular.ttf',
+        'Pacifico': 'Pacifico.ttf',
+
+      }).preloadFonts();
   }
 }
 

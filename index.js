@@ -33,14 +33,14 @@ app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something mo
   const logos = [];
 
   let count = 0; // TODO refactor this.
-    palettes.forEach((palette) => {
-      if (rules[count] === undefined) { // TODO refactor this.
-        count = 0;
-      }
-      characteristics.push([information.name, information.tagline,
-        rules[count], palette[0], palette[1], []]);
-      count += 1;
-    });
+  palettes.forEach((palette) => {
+    if (rules[count] === undefined) { // TODO refactor this.
+      count = 0;
+    }
+    characteristics.push([information.name, information.tagline,
+      rules[count], palette[0], palette[1], []]);
+    count += 1;
+  });
 
   for (let i = 0; i < characteristics.length; i++) {
     logos.push(new Logo(characteristics[i][0], characteristics[i][1],
