@@ -192,7 +192,8 @@ class Logo {
 
       case 'right': {
         const taglineX = this.companyNameElement.bbox().w -
-          (this.taglineElement.bbox().w + this.companyNameElement.bbox().x);
+          this.taglineElement.bbox().w +
+          this.companyNameElement.bbox().x;
 
         const taglineY = this.companyNameElement.bbox().y + this.companyNameElement.bbox().h + 10;
 
@@ -350,13 +351,13 @@ class Logo {
   setTextCasing(text, casing) {
     switch (casing) {
       case 'lowercase':
-        text = text.toLowerCase();
+        text.toLowerCase();
         break;
       case 'uppercase':
-        text = text.toUpperCase();
+        text.toUpperCase();
         break;
       case 'pascalcase':
-        text = text.replace(/\w+/g, w => w[0].toUpperCase() +
+        text.replace(/\w+/g, w => w[0].toUpperCase() +
         w.slice(1).toLowerCase());
         break;
       default:
