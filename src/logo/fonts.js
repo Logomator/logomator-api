@@ -30,7 +30,7 @@ const TAGLINE_FONT_LIST = [
 const FONT_CASING = [
   'lowercase',
   'uppercase',
-  'pascalCase',
+  'pascalcase',
 ];
 
 
