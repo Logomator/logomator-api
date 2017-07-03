@@ -362,7 +362,6 @@ class Logo {
       default:
         break;
     }
-    console.log('TEXT', text);
     return text;
   }
   preloadFonts() {
