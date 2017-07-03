@@ -48,13 +48,18 @@ class Inspiration {
   }
 
   generateInspirationsWithCasing(returnInspirations) {
+    const scriptTypeCasings = ['pascalcase', 'lowercase'];
     returnInspirations.forEach((i) => {
-      i.name.casing = fonts.getFontCasing()[
+      i.name.casing = i.name.fontType === 'script' ?
+        scriptTypeCasings[Math.floor(Math.random() * (scriptTypeCasings.length))] :
+        fonts.getFontCasing()[
         Math.floor(Math.random() * (fonts.getFontCasing().length))
         ];
 
       if (i.tagline) {
-        i.tagline.casing = fonts.getFontCasing()[
+        i.tagline.casing = i.tagline.fontType === 'script' ?
+          scriptTypeCasings[Math.floor(Math.random() * (scriptTypeCasings.length))] :
+          fonts.getFontCasing()[
           Math.floor(Math.random() * (fonts.getFontCasing().length))
           ];
       }

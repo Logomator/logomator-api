@@ -29,7 +29,10 @@ class Logo {
     this.groupElement = draw.group();
 
     if (!this.rules.tagline) {
-      return this.drawCompanyName(draw, this.groupElement);
+      this.drawCompanyName(draw, this.groupElement);
+      const svg = draw.svg();
+      draw.clear();
+      return svg;
     }
 
     this.drawCompanyName(draw, this.groupElement);
@@ -51,7 +54,6 @@ class Logo {
     if (this.rules.tagline) {
       /**
        * Center group element
-       * @type {number}
        */
       const groupY = 115 - (this.groupElement.bbox().h / 2);
 
@@ -298,7 +300,6 @@ class Logo {
         const taglineWidthWithSpacing = this.taglineElement.bbox().w + spacing;
         const companyNameWidthDifference = this.companyNameElement.bbox().w - taglineWidthWithSpacing;
 
-
         line = draw.line(0, 0, companyNameWidthDifference, 0).stroke({
           width: 5,
           color: this.companyNameColor,
@@ -349,18 +350,19 @@ class Logo {
   setTextCasing(text, casing) {
     switch (casing) {
       case 'lowercase':
-        text.toLowerCase();
+        text = text.toLowerCase();
         break;
       case 'uppercase':
-        text.toUpperCase();
+        text = text.toUpperCase();
         break;
       case 'pascalcase':
-        text.replace(/\w+/g, w => w[0].toUpperCase() +
+        text = text.replace(/\w+/g, w => w[0].toUpperCase() +
         w.slice(1).toLowerCase());
         break;
       default:
         break;
     }
+    console.log('TEXT', text);
     return text;
   }
   preloadFonts() {
