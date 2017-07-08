@@ -159,20 +159,17 @@ app.post('/api/survey', (req, res) => { // TODO: Change URL to something more se
   });
 });
 
-app.post('/api/logo/download', (req, res) => {
+app.post('/api/logo/download', (async (req, res) => {
   const download = new Download(req.body.logo);
-  const fileContent = download.getHighRes();
-  const filepath = path.join(__dirname + '/logo.svg');
+  const filepath = await download.generateHighResPNG();
 
-  fs.writeFile(filepath, fileContent, [], (err) => {
-    if (err) throw err;
-    zip.file('logo.svg', fs.readFileSync(filepath));
-    const data = zip.generate({ base64: false, compression: 'DEFLATE' });
-    fs.writeFileSync('logos.zip', data, 'binary');
-    fs.chmodSync('logos.zip', '777');
-    res.download('logos.zip');
-  });
-});
+  zip.file(filepath, fs.readFileSync(filepath));
+
+  const data = zip.generate({ base64: false, compression: 'DEFLATE' });
+
+  fs.writeFileSync('logos.zip', data, 'binary');
+  res.download('logos.zip');
+}));
 
 app.get('/api/logo/:filename', (req, res) => {
   return res.download('logos.zip');
