@@ -119,6 +119,8 @@ class Download {
 
   clear() {
     fs.unlink(`${__dirname}/../../logo.svg`);
+    fs.unlink(`${__dirname}/../../logo.min.svg`);
+    fs.unlink(`${__dirname}/../../created.svg`);
     fs.unlink(`${__dirname}/../../high-res.png`);
     fs.unlink(`${__dirname}/../../high-res-with-bg.png`);
     fs.unlink(`${__dirname}/../../high-res.pdf`);
