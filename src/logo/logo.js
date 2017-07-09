@@ -351,13 +351,13 @@ class Logo {
   setTextCasing(text, casing) {
     switch (casing) {
       case 'lowercase':
-        text.toLowerCase();
+        text = text.toLowerCase();
         break;
       case 'uppercase':
-        text.toUpperCase();
+        text = text.toUpperCase();
         break;
       case 'pascalcase':
-        text.replace(/\w+/g, w => w[0].toUpperCase() +
+        text = text.replace(/\w+/g, w => w[0].toUpperCase() +
         w.slice(1).toLowerCase());
         break;
       default:
