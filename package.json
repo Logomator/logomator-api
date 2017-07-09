@@ -21,10 +21,15 @@
     "expressjs": "^1.0.1",
     "node-zip": "^1.1.1",
     "nodemailer": "^4.0.1",
+    "pn": "^1.0.0",
+    "sharp": "^0.18.2",
+    "svg-to-png": "^3.1.2",
     "svg.js": "^2.6.1",
     "svg2png": "^4.1.1",
     "svgdom": "0.0.10",
     "svgjs": "^2.6.2",
+    "svgo": "^0.7.2",
+    "text-to-svg": "^3.1.2",
     "the-noun-project": "^2.0.1"
   },
   "devDependencies": {
