@@ -29,6 +29,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static('public'));
 
+app.get('/', (req, res) => {
+  res.send('Hello, logomator api');
+});
+
 app.post('/api/logos/chars', (req, res) => { // TODO: Change URL to something more semantic
   const inspirations = new Inspirations(req.body.inspirations);
   const rules = inspirations.getInspirations();
