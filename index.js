@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+var https = require('https');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -12,6 +13,11 @@ const fonts = require('./src/logo/fonts');
 const Colors = require('./src/logo/color');
 const Download = require('./src/logo/download');
 const zip = new require('node-zip')();
+
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/api.logomator.com/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/api.logomator.com/cert.pem', 'utf8');
+const credentials = { key: privateKey, cert: certificate };
+
 
 const app = express();
 app.use(cors());
@@ -187,7 +193,11 @@ app.get('/api/logo/:filename', (req, res) => {
   return res.download('logos.zip');
 });
 
+const httpsServer = https.createServer(credentials, app);
 
-app.listen(process.env.PORT || 8000, () => {
-  console.log('Logomator API listening on port 8000!');
-});
+httpsServer.listen(8443);
+
+
+// app.listen(process.env.PORT || 8000, () => {
+//   console.log('Logomator API listening on port 8000!');
+// });
