@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const exec = require('child_process').exec;
 
-const INKSCAPE = '/Applications/Inkscape.app/Contents/Resources/script';
+const INKSCAPE = 'inkscape';
 const LOGO_WIDTH = 300;
 const LOGO_HEIGHT = 230;
 
