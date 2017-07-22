@@ -187,10 +187,10 @@ app.post('/api/logo/download', (async (req, res) => {
 
   fs.writeFileSync('logos.zip', data, 'binary');
 
+  res.download('logos.zip');
+
   // Clear files
   download.clear();
-
-  res.download('logos.zip');
 }));
 
 app.get('/api/logo/:filename', (req, res) => {
