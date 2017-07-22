@@ -186,11 +186,12 @@ app.post('/api/logo/download', (async (req, res) => {
   const data = zip.generate({ base64: false, compression: 'DEFLATE' });
 
   fs.writeFileSync('logos.zip', data, 'binary');
-
   res.download('logos.zip');
 
   // Clear files
   download.clear();
+
+  fs.unlink(`${__dirname}/logos.zip`);
 }));
 
 app.get('/api/logo/:filename', (req, res) => {

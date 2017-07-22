@@ -125,7 +125,6 @@ class Download {
     fs.unlink(`${__dirname}/../../high-res-with-bg.png`);
     fs.unlink(`${__dirname}/../../high-res.pdf`);
     fs.unlink(`${__dirname}/../../high-res.eps`);
-    fs.unlink(`${__dirname}/../../logos.zip`);
   }
 }
 
